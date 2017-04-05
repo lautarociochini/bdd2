@@ -10,6 +10,7 @@ public class Conductor extends Usuario {
 	public Date getLicencia() {
 		return licencia;
 	}
+	
 	public void setLicencia(Date licencia) {
 		this.licencia = licencia;
 	}

@@ -12,7 +12,7 @@ public class Usuario {
 	
 	private Date fechaIngreso; 
 	
-	private Collection<Viaje> viajes;
+	protected Collection<Viaje> viajes;
 	
 	public Date getfechaIngreso() {
 	return fechaIngreso; }

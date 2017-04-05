@@ -1,6 +1,7 @@
 package misClases;
 
 import java.sql.Date;
+import java.util.Collection;
 
 public class Viaje {
 	
@@ -10,6 +11,9 @@ public class Viaje {
 	private Date fecha;
 	private int maxPasajeros;
 	private boolean finalizado;
+	private Conductor conductor;
+	private Collection<Pasajero> pasajeros;
+	private Collection<Calificacion> calificaciones;	
 	
 	
 	public String getDestino() {
@@ -47,6 +51,37 @@ public class Viaje {
 	}
 	public void setFinalizado(boolean finalizado) {
 		this.finalizado = finalizado;
+	}
+	public Conductor getConductor() {
+		return conductor;
+	}
+	public void setConductor(Conductor conductor) {
+		this.conductor = conductor;
+	}
+	public Collection<Pasajero> getPasajeros() {
+		return pasajeros;
+	}
+	public void setPasajeros(Collection<Pasajero> pasajeros) {
+		this.pasajeros = pasajeros;
+	}
+	public Collection<Calificacion> getCalificaciones() {
+		return calificaciones;
+	}
+	public void setCalificaciones(Collection<Calificacion> calificaciones) {
+		this.calificaciones = calificaciones;
+	}
+
+	public void inicializar(float costoTotal, Date fecha, String destino, String origen, int maxPasajeros, Conductor conductor) {
+		this.setConductor(conductor);
+		this.setCostoTotal(costoTotal);
+		this.setDestino(destino);
+		this.setFinalizado(false);
+		this.setFecha(fecha);
+		this.setMaxPasajeros(maxPasajeros);
+		this.setOrigen(origen);
+	}
+	public void finalizar() {
+		this.setFinalizado(true);		
 	}
 	
 	

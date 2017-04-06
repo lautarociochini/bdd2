@@ -39,4 +39,12 @@ public class Calificacion {
 		this.viaje = viaje;
 	}
 
+	public void inicializar(Viaje unViaje, int puntaje, String comentario, Pasajero pasajero) {
+			this.setViaje(unViaje);
+			this.setPasajero(pasajero);
+			this.setPuntaje(puntaje);
+			this.setComentario(comentario);
+			unViaje.agregarCalificacion(this);	
+	}
+
 }

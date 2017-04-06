@@ -30,4 +30,10 @@ public class Conductor extends Usuario {
 		unViaje.finalizar();
 	}
 
+	public boolean licenciaVencidaPara(Date fecha) {
+		if (this.getLicencia().after(fecha)) {
+			return false;
+		}
+			return true;
+	}
 }

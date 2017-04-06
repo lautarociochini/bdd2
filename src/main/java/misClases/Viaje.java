@@ -83,7 +83,20 @@ public class Viaje {
 	public void finalizar() {
 		this.setFinalizado(true);		
 	}
+	public void agregarCalificacion(Calificacion calificacion) {
+		this.calificaciones.add(calificacion);
+	}
+	public boolean agregarPasajero(Pasajero pasajero) {
+		if (this.getMaxPasajeros() > this.pasajeros.size() ) {
+			this.pasajeros.add(pasajero);
+			return true;
+		} else {
+			return false;
+		}
+	}
 	
-	
+	public boolean estaFinalizado() {
+		return this.finalizado;
+	}
 
 }

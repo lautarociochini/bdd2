@@ -2,10 +2,11 @@ package misClases;
 
 public class Calificacion {
 
-	private String comentario;
-	private int puntaje;
-	private Pasajero pasajero;
-	private Viaje viaje;
+	protected String comentario;
+	protected int puntaje;
+	protected Pasajero pasajero;
+	protected Viaje viaje;
+	private long idCalificacion;
 	
 
 	public String getComentario() {
@@ -45,6 +46,14 @@ public class Calificacion {
 			this.setPuntaje(puntaje);
 			this.setComentario(comentario);
 			unViaje.agregarCalificacion(this);	
+	}
+
+	public long getIdCalificacion() {
+		return idCalificacion;
+	}
+
+	public void setIdCalificacion(long id) {
+		this.idCalificacion = id;
 	}
 
 }

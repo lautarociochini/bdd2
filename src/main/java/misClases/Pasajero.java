@@ -1,8 +1,10 @@
 package misClases;
 
+import java.sql.Date;
+
 public class Pasajero extends Usuario {
 
-	private float credito;	
+	protected float credito;
 
 	public float getCredito() {
 		return credito;
@@ -19,6 +21,13 @@ public class Pasajero extends Usuario {
 	
 	public void registrarseA(Viaje unViaje) {
 		unViaje.agregarPasajero(this);
+	}
+
+	public void inicializar(String nombre, String contrasena, Date fechaIngreso, float credito) {
+		this.setNombre(nombre);
+		this.setContraseña(contrasena);
+		this.setfechaIngreso(fechaIngreso);
+		this.setCredito(credito);
 	}
 	
 }

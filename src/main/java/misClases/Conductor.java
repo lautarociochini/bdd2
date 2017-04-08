@@ -4,8 +4,8 @@ import java.sql.Date;
 
 public class Conductor extends Usuario {
 
-	private Date licencia;
-	private float puntaje;
+	protected Date licencia;
+	protected float puntaje;
 
 	public Date getLicencia() {
 		return licencia;
@@ -14,6 +14,11 @@ public class Conductor extends Usuario {
 		this.licencia = licencia;
 	}
 	public float getPuntaje() {
+		float puntajeTotal = 0;
+		for (Viaje viaje : viajes) {
+			puntajeTotal = puntajeTotal + viaje.getPuntaje();
+		}
+		puntaje = (puntajeTotal / viajes.size());
 		return puntaje;
 	}
 	public void setPuntaje(float puntaje) {
@@ -36,4 +41,12 @@ public class Conductor extends Usuario {
 		}
 			return true;
 	}
+	public void inicializar(String nombre, String contrasena, Date fechaIngreso, Date licencia) {
+		this.setNombre(nombre);
+		this.setContraseña(contrasena);
+		this.setfechaIngreso(fechaIngreso);
+		this.setLicencia(licencia);
+		this.puntaje = 0;
+	}
+	
 }

@@ -2,19 +2,34 @@ package misClases;
 
 import java.sql.Date;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class Viaje {
 	
-	private String destino;
-	private String origen;
-	private float costoTotal;
-	private Date fecha;
-	private int maxPasajeros;
-	private boolean finalizado;
-	private Conductor conductor;
-	private Collection<Pasajero> pasajeros;
-	private Collection<Calificacion> calificaciones;	
+	protected String destino;
+	protected String origen;
+	protected float costoTotal;
+	protected Date fecha;
+	protected int maxPasajeros;
+	protected boolean finalizado;
+	protected Conductor conductor;
+	protected Collection<Pasajero> pasajeros = new HashSet<Pasajero>();
+	protected Collection<Calificacion> calificaciones = new HashSet<Calificacion>();
+	protected float puntaje;
 	
+	public float getPuntaje() {
+		float puntajeTotal = 0;
+		for (Calificacion calificacion : calificaciones) {
+			puntajeTotal = puntajeTotal + calificacion.getPuntaje();
+		}
+		puntaje = (puntajeTotal / calificaciones.size());
+		return puntaje;
+	}
+	
+	public void setPuntaje(float puntaje) {
+		this.puntaje = puntaje;
+	}
+	private long idViaje;
 	
 	public String getDestino() {
 		return destino;
@@ -86,17 +101,23 @@ public class Viaje {
 	public void agregarCalificacion(Calificacion calificacion) {
 		this.calificaciones.add(calificacion);
 	}
-	public boolean agregarPasajero(Pasajero pasajero) {
+	public void agregarPasajero(Pasajero pasajero) {
 		if (this.getMaxPasajeros() > this.pasajeros.size() ) {
 			this.pasajeros.add(pasajero);
-			return true;
+			System.out.print("El pasajero se agregó con éxito");
 		} else {
-			return false;
+			System.out.print("La capacidad esta llena");
 		}
 	}
 	
 	public boolean estaFinalizado() {
 		return this.finalizado;
+	}
+	public long getIdViaje() {
+		return idViaje;
+	}
+	public void setIdViaje(long id) {
+		this.idViaje = id;
 	}
 
 }

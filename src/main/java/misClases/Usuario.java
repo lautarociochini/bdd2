@@ -2,17 +2,16 @@ package misClases;
 
 import java.sql.Date;
 import java.util.Collection;
+import java.util.HashSet;
 
 
 public class Usuario {
 	
-	private String nombre;
-	
-	private String contraseña;
-	
-	private Date fechaIngreso; 
-	
-	protected Collection<Viaje> viajes;
+	protected String nombre;
+	protected String contraseña;
+	protected Date fechaIngreso; 
+	protected Collection<Viaje> viajes = new HashSet<Viaje>();
+	private long idUsuario;
 	
 	public Date getfechaIngreso() {
 	return fechaIngreso; }
@@ -35,6 +34,14 @@ public class Usuario {
 	
 	public Collection<Viaje> viajesRealizados() {
 		return viajes;
+	}
+
+	public long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(long id) {
+		this.idUsuario = id;
 	}
 	
 }

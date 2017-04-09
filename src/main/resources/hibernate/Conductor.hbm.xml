@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-
+//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate -mapping-3.0.dtd">
+
+<hibernate-mapping package=misClases">
+
+<subclass name="Conductor" extends="Usuario" discriminator-Value="C">
+   
+<property name="licencia" /> 
+<property name="puntaje" />
+
+<set name="viajes" inverse="true" cascade="all">
+<key column="id_usuario"/>
+<one-to-many class="Viaje"/>
+</set>
+
+
+
+
+
+</class>
+</hibernate-mapping>

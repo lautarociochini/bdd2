@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-
+//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate -mapping-3.0.dtd">
+
+<hibernate-mapping package=misClases">
+
+<class name="Usuario" table="USUARIO">
+<id name=idUsuario" column="id_usuario">
+ <generator class="native"/>
+</id>
+<discriminator column="subclase_usuario" type="string"/>       
+<property name="nombre" /> 
+<property name="contrasena" />
+<property name="fechaIngreso" />
+
+
+</class>
+</hibernate-mapping>

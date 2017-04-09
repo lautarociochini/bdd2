@@ -29,6 +29,11 @@ public class Pasajero extends Usuario {
 		this.setfechaIngreso(fechaIngreso);
 		this.setCredito(credito);
 	}
+
+	public void descontarCredito(float costoIndividual) {
+		this.credito = this.credito - costoIndividual;
+		
+	}
 	
 }
 	

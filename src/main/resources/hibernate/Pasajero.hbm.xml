@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-
+//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate -mapping-3.0.dtd">
+
+<hibernate-mapping package=misClases">
+
+<subclass name="Pasajero" extends="Usuario" discriminator-Value="P">
+   
+<property name="credito" /> 
+
+
+<set name="viajes" table="VIAJE_PASAJERO"
+         inverse="true" >
+       <key column="id_usuario" />
+<many-to-many column="id_viaje" class="Viaje"/>
+</set>
+
+
+
+</class>
+</hibernate-mapping>

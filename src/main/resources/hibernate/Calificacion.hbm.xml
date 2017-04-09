@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-
+//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate -mapping-3.0.dtd">
+
+<hibernate-mapping package=misClases">
+<class name="Calificacion" table="CALIFICACION">
+<id name=idCalificacion" column="id_calificacion">
+ <generator class="native"/>
+</id>
+
+<many-to-one name="pasajero" 
+			column="id_pasajero"
+			unique="true"
+              not-null="true"
+              cascade="all"/>
+    
+  <many-to-one name="viaje" column="id_viaje"
+              not-null="true"
+              cascade="all"/>          
+              
+              
+<property name="comentario" /> 
+<property name="puntaje" />
+
+</class>
+</hibernate-mapping>

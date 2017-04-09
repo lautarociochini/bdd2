@@ -21,6 +21,13 @@
 
 		<!-- Incluir mappings aquí -->
 		<!-- <mapping resource="hibernate/clase.hbm.xml" /> -->
-
+		
+		<mapping resource="hibernate/Muber.hbm.xml" />
+		<mapping resource="hibernate/Calificacion.hbm.xml" />
+		<mapping resource="hibernate/Conductor.hbm.xml" />
+		<mapping resource="hibernate/Pasajero.hbm.xml" />
+		<mapping resource="hibernate/Usuario.hbm.xml" />
+		<mapping resource="hibernate/Viaje.hbm.xml" />
+		
 	</session-factory>
 </hibernate-configuration>

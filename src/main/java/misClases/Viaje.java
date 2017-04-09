@@ -96,7 +96,12 @@ public class Viaje {
 		this.setOrigen(origen);
 	}
 	public void finalizar() {
-		this.setFinalizado(true);		
+		this.setFinalizado(true);
+		float costoIndividual = this.costoTotal / this.pasajeros.size();
+		for (Pasajero pasajero : pasajeros) {
+			pasajero.descontarCredito(costoIndividual);
+		}
+		
 	}
 	public void agregarCalificacion(Calificacion calificacion) {
 		this.calificaciones.add(calificacion);

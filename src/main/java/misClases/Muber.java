@@ -1,64 +1,63 @@
 package misClases;
 
-import java.sql.Date;
+
 import java.util.Collection;
 import java.util.HashSet;
 
 public class Muber {
-	protected Collection<Usuario> usuarios = new HashSet<Usuario>();
+	protected Collection<Conductor> conductores = new HashSet<Conductor>();
+	protected Collection<Pasajero> pasajeros = new HashSet<Pasajero>();
 	
-	
-	public Collection<Usuario> listarPasajeros() {
-		Collection<Usuario> coleccionPasajeros = new HashSet<Usuario>();
-		for (Usuario usuario : usuarios) {
-			if (usuario.getClass().getSimpleName().equals("Pasajero")) {
-				coleccionPasajeros.add(usuario);
-			}
-		}
-		return coleccionPasajeros;
+	public Muber(){
+		
 	}
 	
-	public Collection<Usuario> listarConductores() {
-		Collection<Usuario> coleccionConductores = new HashSet<Usuario>();
-		for (Usuario usuario : usuarios) {
-			if (usuario.getClass().getSimpleName().equals("Conductor")) {
-				coleccionConductores.add(usuario);
-			}
+	public void listarPasajeros() {		
+		for (Pasajero pasajero : pasajeros) {
+			this.informacionDePasajero(pasajero);
 		}
-		return coleccionConductores;
 	}
 	
-	public Collection<Viaje> listarViajes() {
-		Collection<Usuario> coleccionConductores = this.listarConductores();
-		Collection<Viaje> coleccionViajes = new HashSet<Viaje>();
-		for (Usuario usuario : coleccionConductores) {
-			for (Viaje viaje : usuario.viajesRealizados()) {
-				coleccionViajes.add(viaje);
-			}
+	public void listarConductores() {		
+		for (Conductor conductor : conductores) {
+			this.informacionDeConductor(conductor);
 		}
-		return coleccionViajes;
+	}
+	
+	public void listarViajes() {
+		for (Conductor conductor : this.conductores) {
+			conductor.viajesRealizados();
+		}
 	}
 
-	public Collection<Viaje> listarViajesAbiertos() {
-		Collection<Viaje> viajesAbiertos = new HashSet<Viaje>();
-		for (Viaje viaje : this.listarViajes()) {
-			if (!viaje.isFinalizado()) {
-				viajesAbiertos.add(viaje);
-			}
+	public void listarViajesAbiertos() {
+		for (Conductor conductor : this.conductores) {
+			conductor.viajesAbiertos();
 		}
-		return viajesAbiertos;
 	}
 	
-	public void crearConductor(String nombre, String contrasena, Date fechaIngreso, Date licencia){
-		Conductor conductor = new Conductor();
-		conductor.inicializar(nombre, contrasena, fechaIngreso, licencia);
-		this.usuarios.add(conductor);
+	public void agregarConductor(Conductor conductor){
+		this.conductores.add(conductor);
 	}
 	
-	public void crearPasajero(String nombre, String contrasena, Date fechaIngreso, float credito){
-		Pasajero pasajero = new Pasajero();
-		pasajero.inicializar(nombre, contrasena, fechaIngreso, credito);
-		this.usuarios.add(pasajero);
+	public void agregarPasajero(Pasajero pasajero){
+		this.pasajeros.add(pasajero);
 	}
+	
+	public void informacionDeConductor(Conductor conductor){
+		System.out.println("Nombre: "+conductor.getNombre());
+		System.out.println("Puntaje: "+conductor.getPuntaje());
+		System.out.println("Vto Licencia: "+conductor.getLicencia());
+		conductor.viajesRealizados();
+		conductor.viajesAbiertos();
+		System.out.println("");
+	}
+	
+	public void informacionDePasajero(Pasajero pasajero){
+		System.out.println("Nombre: "+pasajero.getNombre());
+		System.out.println("Credito: "+pasajero.getCredito());
+		System.out.println("");
+	}
+
 }
 

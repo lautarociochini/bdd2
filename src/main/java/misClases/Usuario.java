@@ -1,22 +1,24 @@
 package misClases;
 
-import java.sql.Date;
-import java.util.Collection;
-import java.util.HashSet;
 
 
 public class Usuario {
 	
 	protected String nombre;
 	protected String contraseña;
-	protected Date fechaIngreso; 
-	protected Collection<Viaje> viajes = new HashSet<Viaje>();
+	protected String fechaIngreso; 
 	private long idUsuario;
 	
-	public Date getfechaIngreso() {
+	public Usuario(String nombre, String contrasena, String fechaIngreso) {
+		this.setNombre(nombre);
+		this.setContraseña(contrasena);
+		this.setfechaIngreso(fechaIngreso);
+	}
+
+	public String getfechaIngreso() {
 	return fechaIngreso; }
 	
-	public void setfechaIngreso(Date fechaIngreso) {
+	public void setfechaIngreso(String fechaIngreso) {
 	this.fechaIngreso = fechaIngreso;
 	}
 	
@@ -32,9 +34,6 @@ public class Usuario {
 	public void setNombre(String nombre) {
 	this.nombre = nombre; }
 	
-	public Collection<Viaje> viajesRealizados() {
-		return viajes;
-	}
 
 	public long getIdUsuario() {
 		return idUsuario;

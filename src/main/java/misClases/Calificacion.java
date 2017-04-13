@@ -8,7 +8,13 @@ public class Calificacion {
 	protected Viaje viaje;
 	private long idCalificacion;
 	
-
+	public Calificacion(Viaje unViaje, int puntaje, String comentario, Pasajero pasajero) {
+		this.setViaje(unViaje);
+		this.setPasajero(pasajero);
+		this.setPuntaje(puntaje);
+		this.setComentario(comentario);	
+}
+	
 	public String getComentario() {
 		return comentario;
 	}
@@ -38,14 +44,6 @@ public class Calificacion {
 
 	public void setViaje(Viaje viaje) {
 		this.viaje = viaje;
-	}
-
-	public void inicializar(Viaje unViaje, int puntaje, String comentario, Pasajero pasajero) {
-			this.setViaje(unViaje);
-			this.setPasajero(pasajero);
-			this.setPuntaje(puntaje);
-			this.setComentario(comentario);
-			unViaje.agregarCalificacion(this);	
 	}
 
 	public long getIdCalificacion() {

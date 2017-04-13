@@ -1,6 +1,6 @@
 package misClases;
 
-import java.sql.Date;
+
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -9,22 +9,35 @@ public class Viaje {
 	protected String destino;
 	protected String origen;
 	protected float costoTotal;
-	protected Date fecha;
+	protected String fecha;
 	protected int maxPasajeros;
 	protected boolean finalizado;
 	protected Conductor conductor;
 	protected Collection<Pasajero> pasajeros = new HashSet<Pasajero>();
 	protected Collection<Calificacion> calificaciones = new HashSet<Calificacion>();
 	protected float puntaje;
+
+	public Viaje(float costoTotal, String fecha, String destino, String origen, int maxPasajeros, Conductor conductor) {
+		this.setConductor(conductor);
+		this.setCostoTotal(costoTotal);
+		this.setDestino(destino);
+		this.setFinalizado(false);
+		this.setFecha(fecha);
+		this.setMaxPasajeros(maxPasajeros);
+		this.setOrigen(origen);
+	}
 	
 	public float getPuntaje() {
 		float puntajeTotal = 0;
+		if (this.calificaciones.size() != 0) {
 		for (Calificacion calificacion : calificaciones) {
 			puntajeTotal = puntajeTotal + calificacion.getPuntaje();
 		}
 		puntaje = (puntajeTotal / calificaciones.size());
-		return puntaje;
-	}
+		}
+		return puntaje;	
+	}	
+		
 	
 	public void setPuntaje(float puntaje) {
 		this.puntaje = puntaje;
@@ -49,10 +62,10 @@ public class Viaje {
 	public void setCostoTotal(float costoTotal) {
 		this.costoTotal = costoTotal;
 	}
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	public int getMaxPasajeros() {
@@ -86,15 +99,6 @@ public class Viaje {
 		this.calificaciones = calificaciones;
 	}
 
-	public void inicializar(float costoTotal, Date fecha, String destino, String origen, int maxPasajeros, Conductor conductor) {
-		this.setConductor(conductor);
-		this.setCostoTotal(costoTotal);
-		this.setDestino(destino);
-		this.setFinalizado(false);
-		this.setFecha(fecha);
-		this.setMaxPasajeros(maxPasajeros);
-		this.setOrigen(origen);
-	}
 	public void finalizar() {
 		this.setFinalizado(true);
 		float costoIndividual = this.costoTotal / this.pasajeros.size();
@@ -103,15 +107,17 @@ public class Viaje {
 		}
 		
 	}
+	
 	public void agregarCalificacion(Calificacion calificacion) {
 		this.calificaciones.add(calificacion);
 	}
+	
 	public void agregarPasajero(Pasajero pasajero) {
 		if (this.getMaxPasajeros() > this.pasajeros.size() ) {
 			this.pasajeros.add(pasajero);
-			System.out.print("El pasajero se agregó con éxito");
+			System.out.println("El pasajero se agregó con éxito");
 		} else {
-			System.out.print("La capacidad esta llena");
+			System.out.println("La capacidad esta llena");
 		}
 	}
 	

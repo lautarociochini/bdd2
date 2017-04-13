@@ -1,10 +1,14 @@
 package misClases;
 
-import java.sql.Date;
 
 public class Pasajero extends Usuario {
 
 	protected float credito;
+	
+	public Pasajero(String nombre, String contrasena, String fecha, float credito) {
+		super(nombre, contrasena, fecha);
+		this.setCredito(credito);
+	}
 
 	public float getCredito() {
 		return credito;
@@ -14,20 +18,23 @@ public class Pasajero extends Usuario {
 		this.credito = credito;
 	}
 	
-	public void calificar(Viaje unViaje, int puntaje, String comentario) {
-			Calificacion calificacion = new Calificacion();
-			calificacion.inicializar(unViaje, puntaje, comentario, this);		
+	public void calificar(Calificacion calificacion, Viaje unViaje) {
+			if (unViaje.isFinalizado() && unViaje.pasajeros.contains(this)) {
+			unViaje.agregarCalificacion(calificacion);
+			} else {
+				if (!unViaje.isFinalizado()) {
+				System.out.println("No se puede calificar un viaje abierto");
+				} else {
+					System.out.println("No estas incluido en este viaje");
+				}
+			}
+				
 	}
 	
 	public void registrarseA(Viaje unViaje) {
+		if (!unViaje.isFinalizado()) {
 		unViaje.agregarPasajero(this);
-	}
-
-	public void inicializar(String nombre, String contrasena, Date fechaIngreso, float credito) {
-		this.setNombre(nombre);
-		this.setContraseña(contrasena);
-		this.setfechaIngreso(fechaIngreso);
-		this.setCredito(credito);
+		}
 	}
 
 	public void descontarCredito(float costoIndividual) {

@@ -7,7 +7,16 @@ import java.util.HashSet;
 public class Muber {
 	protected Collection<Conductor> conductores = new HashSet<Conductor>();
 	protected Collection<Pasajero> pasajeros = new HashSet<Pasajero>();
+	private long idMuber;
 	
+	public long getIdMuber() {
+		return idMuber;
+	}
+
+	public void setIdMuber(long idMuber) {
+		this.idMuber = idMuber;
+	}
+
 	public Muber(){
 		
 	}

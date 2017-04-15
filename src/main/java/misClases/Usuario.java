@@ -5,13 +5,13 @@ package misClases;
 public class Usuario {
 	
 	protected String nombre;
-	protected String contraseña;
+	protected String contrasena;
 	protected String fechaIngreso; 
 	private long idUsuario;
 	
 	public Usuario(String nombre, String contrasena, String fechaIngreso) {
 		this.setNombre(nombre);
-		this.setContraseña(contrasena);
+		this.setContrasena(contrasena);
 		this.setfechaIngreso(fechaIngreso);
 	}
 
@@ -22,11 +22,11 @@ public class Usuario {
 	this.fechaIngreso = fechaIngreso;
 	}
 	
-	public String getContraseña() {
-	return contraseña; }
+	public String getContrasena() {
+	return contrasena; }
 	
-	public void setContraseña(String contraseña) {
-	this.contraseña = contraseña; }
+	public void setContrasena(String contrasena) {
+	this.contrasena = contrasena; }
 	
 	public String getNombre() { return nombre;
 	}

@@ -1,33 +1,32 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-
-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate -mapping-3.0.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package=misClases">
+<hibernate-mapping package="misClases">
 
-<class name="Viaje" table="VIAJE">
-<id name=idViaje" column="id_viaje">
- <generator class="native"/>
-</id>
-<property name="destino" /> 
-<property name="origen" />
-<property name="costoTotal" />
-<property name="fecha" /> 
-<property name="maxPasajeros" />
-<property name="finalizado" />
+	<class name="Viaje" table="VIAJE">
+		<id name="idViaje" column="id_viaje">
+			<generator class="native" />
+		</id>
+		<property name="destino" />
+		<property name="origen" />
+		<property name="costoTotal" />
+		<property name="fecha" />
+		<property name="maxPasajeros" />
+		<property name="finalizado" />
 
-<set name="calificaciones" inverse="true" cascade="all">
-<key column="id_viaje"/>
-<one-to-many class="Calificacion"/>
-</set>
-<set name="pasajeros"
-table="VIAJE_PASAJERO" cascade="all">
-<key column="id_viaje" />
-<many-to-many column="id_usuario" class="Pasajero"/>
-</set>
-<many-to-one name="conductor" column="id_usuario"
+		<set name="calificaciones" inverse="true" cascade="all">
+			<key column="id_viaje" />
+			<one-to-many class="Calificacion" />
+		</set>
 
-              not-null="true"
-              cascade="all"/>
-</class>
+		<set name="pasajeros" table="VIAJE_PASAJERO" cascade="all">
+			<key column="id_viaje" />
+			<many-to-many column="id_usuario" class="Pasajero" />
+		</set>
+		<many-to-one name="conductor" column="id_usuario"
+
+			not-null="true" cascade="all" />
+	</class>
 </hibernate-mapping>

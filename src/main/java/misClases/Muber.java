@@ -68,5 +68,21 @@ public class Muber {
 		System.out.println("");
 	}
 
+	public Collection<Conductor> getConductores() {
+		return conductores;
+	}
+
+	public void setConductores(Collection<Conductor> conductores) {
+		this.conductores = conductores;
+	}
+
+	public Collection<Pasajero> getPasajeros() {
+		return pasajeros;
+	}
+
+	public void setPasajeros(Collection<Pasajero> pasajeros) {
+		this.pasajeros = pasajeros;
+	}
+
 }
 

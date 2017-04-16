@@ -21,11 +21,12 @@
 			<one-to-many class="Calificacion" />
 		</set>
 
-		<set name="pasajeros" table="VIAJE_PASAJERO" cascade="all">
+		<set name="pasajeros" cascade="all">
 			<key column="id_viaje" />
-			<many-to-many column="id_usuario" class="Pasajero" />
+			<one-to-many class="Pasajero" />
 		</set>
-		<many-to-one name="conductor" column="id_usuario"
+
+		<many-to-one name="conductor" column="id_conductor"
 
 			not-null="true" cascade="all" />
 	</class>

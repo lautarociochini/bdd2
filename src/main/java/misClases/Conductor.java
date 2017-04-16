@@ -13,6 +13,11 @@ public class Conductor extends Usuario {
 	protected float puntaje;
 	protected Collection<Viaje> viajes = new HashSet<Viaje>();
 
+	public Conductor(){
+		super();
+		
+	}
+	
 	public Conductor(String nombre, String contrasena, String fechaIngreso, String licencia) {
 		super(nombre, contrasena, fechaIngreso);
 		this.setLicencia(licencia);
@@ -117,6 +122,10 @@ public class Conductor extends Usuario {
 			}
 		}
 		System.out.println("");
+	}
+
+	public void setViajes(Collection<Viaje> viajes) {
+		this.viajes = viajes;
 	}
 
 }

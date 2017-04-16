@@ -9,11 +9,11 @@
  <generator class="native"/>
 </id>
 <set name="pasajeros" lazy="true" cascade="all"> 
-		<key column="id_muber" not-null="true"/>
+		<key column="id_muber" />
 		<one-to-many class="Pasajero"/>
 </set>
 <set name="conductores" lazy="true" cascade="all"> 
-		<key column="id_muber" not-null="true"/>
+		<key column="id_muber" />
 		<one-to-many class="Conductor"/>
 </set>
 </class>

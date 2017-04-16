@@ -16,8 +16,12 @@ public class Viaje {
 	protected Collection<Pasajero> pasajeros = new HashSet<Pasajero>();
 	protected Collection<Calificacion> calificaciones = new HashSet<Calificacion>();
 	protected float puntaje;
+	
+	public Viaje(){
+		
+	}
 
-	public Viaje(float costoTotal, String fecha, String destino, String origen, int maxPasajeros, Conductor conductor) {
+	public Viaje(float costoTotal, String fecha, String origen, String destino, int maxPasajeros, Conductor conductor) {
 		this.setConductor(conductor);
 		this.setCostoTotal(costoTotal);
 		this.setDestino(destino);
@@ -25,6 +29,7 @@ public class Viaje {
 		this.setFecha(fecha);
 		this.setMaxPasajeros(maxPasajeros);
 		this.setOrigen(origen);
+		conductor.agregarViaje(this);
 	}
 	
 	public float getPuntaje() {

@@ -9,6 +9,10 @@ public class Usuario {
 	protected String fechaIngreso; 
 	private long idUsuario;
 	
+	public Usuario(){
+		
+	}
+	
 	public Usuario(String nombre, String contrasena, String fechaIngreso) {
 		this.setNombre(nombre);
 		this.setContrasena(contrasena);

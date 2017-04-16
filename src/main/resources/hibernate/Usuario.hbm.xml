@@ -18,10 +18,7 @@
 			<key column="id_usuario" />
 			<property name="credito" />
 
-			<set name="viajes" table="VIAJE_PASAJERO" inverse="true">
-				<key column="id_usuario" />
-				<many-to-many column="id_viaje" class="Viaje" />
-			</set>
+		
 
 		</joined-subclass>
 
@@ -32,7 +29,7 @@
 			<property name="puntaje" />
 
 			<set name="viajes" inverse="true" cascade="all">
-				<key column="id_usuario" />
+				<key column="id_conductor" />
 				<one-to-many class="Viaje" />
 			</set>
 

@@ -5,6 +5,10 @@ public class Pasajero extends Usuario {
 
 	protected float credito;
 	
+	public Pasajero(){
+		
+	}
+	
 	public Pasajero(String nombre, String contrasena, String fecha, float credito) {
 		super(nombre, contrasena, fecha);
 		this.setCredito(credito);

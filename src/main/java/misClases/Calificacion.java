@@ -8,6 +8,10 @@ public class Calificacion {
 	protected Viaje viaje;
 	private long idCalificacion;
 	
+	public Calificacion(){
+		
+	}
+	
 	public Calificacion(Viaje unViaje, int puntaje, String comentario, Pasajero pasajero) {
 		this.setViaje(unViaje);
 		this.setPasajero(pasajero);

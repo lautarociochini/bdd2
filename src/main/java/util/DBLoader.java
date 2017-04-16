@@ -93,7 +93,7 @@ public class DBLoader {
 		
 		//Parte C y D
 		
-		viaje1.finalizar();
+		Roberto.finalizarViaje(viaje1);
 		
 		Calificacion califGerman = new Calificacion(viaje1, 5, "Buen viaje, Roberto excelente conductor.", German);
 		German.calificar(califGerman, viaje1);

@@ -16,6 +16,7 @@ public class Viaje {
 	protected Collection<Pasajero> pasajeros = new HashSet<Pasajero>();
 	protected Collection<Calificacion> calificaciones = new HashSet<Calificacion>();
 	protected float puntaje;
+	private long idViaje;
 	
 	public Viaje(){
 		
@@ -47,7 +48,7 @@ public class Viaje {
 	public void setPuntaje(float puntaje) {
 		this.puntaje = puntaje;
 	}
-	private long idViaje;
+	
 	
 	public String getDestino() {
 		return destino;

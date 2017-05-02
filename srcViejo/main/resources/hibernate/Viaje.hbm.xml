@@ -3,7 +3,7 @@
 "-//Hibernate/Hibernate Mapping DTD//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="bd2.Muber.model">
+<hibernate-mapping package="misClases">
 
 	<class name="Viaje" table="VIAJE">
 		<id name="idViaje" column="id_viaje">

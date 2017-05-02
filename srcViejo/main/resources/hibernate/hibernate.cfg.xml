@@ -12,8 +12,8 @@
 		</property>
 
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/grupo6</property>
-		<property name="hibernate.connection.username">grupo6</property>
-		<property name="hibernate.connection.password">grupo6</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">labrujita</property>
 
 		<property name="hibernate.show_sql">false</property>
 		<property name="hibernate.format_sql">true</property>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="bd2.Muber.model">
+<class name="Calificacion" table="CALIFICACION">
+<id name="idCalificacion" column="id_calificacion">
+ <generator class="native"/>
+</id>
+
+<many-to-one name="pasajero" 
+			column="id_pasajero"
+			unique="true"
+              not-null="true"
+              cascade="all"/>
+    
+  <many-to-one name="viaje" column="id_viaje"
+              not-null="true"
+              cascade="all"/>          
+              
+              
+<property name="comentario" /> 
+<property name="puntaje" />
+
+</class>
+</hibernate-mapping>

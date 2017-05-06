@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="bd2.Muber.model">
+
+	<class name="Usuario" table="USUARIO">
+		<id name="idUsuario" column="id_usuario">
+			<generator class="native" />
+		</id>
+
+		<property name="nombre" />
+		<property name="contrasena" />
+		<property name="fechaIngreso" />
+
+		<joined-subclass name="Pasajero" table="PASAJERO">
+			<key column="id_usuario" />
+			<property name="credito" />
+
+		
+
+		</joined-subclass>
+
+		<joined-subclass name="Conductor" table="CONDUCTOR">
+
+			<key column="id_usuario" />
+			<property name="licencia" />
+			<property name="puntaje" />
+
+			<set name="viajes" inverse="true" cascade="all">
+				<key column="id_conductor" />
+				<one-to-many class="Viaje" />
+			</set>
+
+		</joined-subclass>
+
+
+
+	</class>
+</hibernate-mapping>

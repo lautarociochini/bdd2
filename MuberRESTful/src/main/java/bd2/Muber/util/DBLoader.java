@@ -74,6 +74,8 @@ public class DBLoader {
 		Conductor Roberto = new Conductor("Roberto", "012345", "15/03/2017", "10/03/2017");
 		muber.agregarConductor(Roberto);
 		Viaje viaje1 = new Viaje(900, "10/03/2017", "La Plata", "Tres Arroyos", 4, Roberto);
+		Viaje viaje2 = new Viaje(1200, "15/03/2017", "La Plata", "Mar Del Plata", 3, Roberto);
+		Viaje viaje3 = new Viaje(1100, "18/03/2017", "Rosario", "Capital Federal", 3, Roberto);
 
 		// Parte B.
 		Pasajero German = new Pasajero("German", "123456", "10/03/2017", 1500);

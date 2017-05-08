@@ -3,11 +3,13 @@
  */
 package bd2.Muber.model.clasesDAOImpl;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import bd2.Muber.model.Conductor;
 import bd2.Muber.model.clasesDAO.ConductorDAO;
 
 /**
@@ -26,5 +28,37 @@ public class ConductorDAOImpl implements ConductorDAO {
 		List<String> list = query.list();
 		return list;
 	}
+
+	@Override
+	public List<String> getInfoById(Session session, long id) {
+		Query query = session.createQuery("SELECT C.nombre, C.puntaje, C.licencia FROM Conductor C WHERE C.idUsuario = :id ");
+		query.setParameter("id", id);
+		@SuppressWarnings("unchecked")
+		List<String> list = query.list();
+		return list;
+	}
+
+	@Override
+	public Collection<String> getViajesById(Session session, long id) {
+		Query query = session.createQuery("SELECT V.origen, V.destino, V.costoTotal, V.fecha FROM Viaje V WHERE V.conductor.idUsuario = :id ");
+		query.setParameter("id", id);
+		@SuppressWarnings("unchecked")
+		List<String> list = query.list();
+		return list;
+	}
+
+	@Override
+	public List<Conductor> getById(Session session, long id) {
+		Query query = session.createQuery("FROM Conductor C WHERE C.idUsuario = :id ");
+		query.setParameter("id", id);
+//		return (Conductor) query;
+		List<Conductor> list = query.list();
+		
+		return list;
+		
+		
+	}
+
+	
 
 }

@@ -31,7 +31,11 @@ public class Viaje {
 		this.setMaxPasajeros(maxPasajeros);
 		this.setOrigen(origen);
 		conductor.agregarViaje(this);
+		
+		
 	}
+	
+	
 	
 	public float getPuntaje() {
 		float puntajeTotal = 0;

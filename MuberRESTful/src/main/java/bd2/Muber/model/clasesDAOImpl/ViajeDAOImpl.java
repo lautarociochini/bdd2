@@ -5,9 +5,13 @@ package bd2.Muber.model.clasesDAOImpl;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import bd2.Muber.model.Viaje;
 import bd2.Muber.model.clasesDAO.ViajeDAO;
 
 /**
@@ -25,6 +29,16 @@ public class ViajeDAOImpl implements ViajeDAO {
 		@SuppressWarnings("unchecked")
 		List<String> list = query.list();
 		return list;
+	}
+
+	
+	@Override
+	@Transactional
+	public void createViaje(Session session, Viaje viaje) {
+		
+		session.save(viaje);
+		
+		
 	}
 
 }

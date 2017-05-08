@@ -7,8 +7,30 @@
 <title>Menu Viajes</title>
 </head>
 <body>
+	<h2>Listar Viajes Abiertos</h2>	
+	<a href="http://localhost:8080/MuberRESTful/rest/services/viajes/abiertos">Enviar</a>
 	
-	<a href="http://localhost:8080/MuberRESTful/rest/services/viajes/abiertos">Listar Viajes Abiertos</a>
+	<h2>Crear nuevo viaje</h2>	
+	<form action="http://localhost:8080/MuberRESTful/rest/services/viajes/nuevo" method="post">
+		<p>
+			<b>Origen:</b> <input type="text" name="origen">
+		</p>
+		<p>
+			<b>Destino:</b> <input type="text" name="destino">
+		</p>
+		<p>
+			<b>Conductor:</b> <input type="long" name="idConductor">
+		</p>
+		<p>
+			<b>Costo Total:</b> <input type="float" name="costoTotal">
+		</p>
+		<p>
+			<b>Cant max pasajeros:</b> <input type="number" name="maxPasajeros" min="1" max="4">
+		</p>
+		
+		<p><input type="submit"></p> 
+	</form>
+	
 	
 </body>
 </html>

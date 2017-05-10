@@ -6,7 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Conductor extends Usuario {
+public class Conductor extends Usuario{
 
 
 	protected String licencia;

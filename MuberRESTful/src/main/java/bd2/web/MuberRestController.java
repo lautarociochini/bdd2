@@ -47,6 +47,8 @@ public class MuberRestController {
 		Session session = factory.openSession();
 		return session;
 	}
+	
+	
 
 	@RequestMapping(value = "/example", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 	public String pasajeros() {
@@ -102,6 +104,8 @@ public class MuberRestController {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = new Date();
 		String fecha = dateFormat.format(date).toString();
+		
+		
 		List<Conductor> conductor = ConductorDAO.getById(getSession(), idConductor);
 		Viaje viaje = new Viaje(costoTotal, fecha, origen, destino, maxPasajeros, conductor.get(0));
 		ViajeDAO.createViaje(getSession(), viaje);

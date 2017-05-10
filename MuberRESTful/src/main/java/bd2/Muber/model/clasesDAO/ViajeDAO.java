@@ -6,7 +6,6 @@ package bd2.Muber.model.clasesDAO;
 import java.util.List;
 
 import org.hibernate.Session;
-
 import bd2.Muber.model.Viaje;
 
 /**

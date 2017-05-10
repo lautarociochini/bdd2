@@ -20,9 +20,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import com.google.gson.Gson;
 import bd2.Muber.model.clasesDAO.PasajeroDAO;
 import bd2.Muber.model.Conductor;
+import bd2.Muber.model.Pasajero;
 import bd2.Muber.model.Viaje;
 import bd2.Muber.model.clasesDAO.ConductorDAO;
 import bd2.Muber.model.clasesDAO.ViajeDAO;
+import bd2.Muber.model.clasesDTO.PasajeroDTO;
 
 @ControllerAdvice
 @RequestMapping("/services")
@@ -60,7 +62,7 @@ public class MuberRestController {
 	@RequestMapping(value = "/pasajeros", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 	public String devolverPasajeros() {
 		Map<String, Object> aMap = new HashMap<String, Object>();
-		Collection<String> pasajeros = PasajeroDAO.getAllPasajeros(getSession());
+		Collection<PasajeroDTO> pasajeros = PasajeroDAO.getAllPasajerosAsPasajeroDTO(getSession());
 		aMap.put("result", "OK");
 		aMap.put("Pasajeros", pasajeros);
 		return new Gson().toJson(aMap);

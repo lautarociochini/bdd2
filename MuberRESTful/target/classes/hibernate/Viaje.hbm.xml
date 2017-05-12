@@ -5,18 +5,18 @@
 
 <hibernate-mapping package="bd2.Muber.model">
 
-	<class name="Viaje" table="VIAJE">
+	<class name="Viaje" table="VIAJE" >
 		<id name="idViaje" column="id_viaje">
 			<generator class="native" />
 		</id>
-		<property name="destino" />
-		<property name="origen" />
-		<property name="costoTotal" />
-		<property name="fecha" />
-		<property name="maxPasajeros" />
-		<property name="finalizado" />
+		<property name="destino" not-null="true"/>
+		<property name="origen" not-null="true"/>
+		<property name="costoTotal" not-null="true"/>
+		<property name="fecha" not-null="true"/>
+		<property name="maxPasajeros" not-null="true"/>
+		<property name="finalizado" not-null="true"/>
 
-		<set name="calificaciones" inverse="true" cascade="all">
+		<set name="calificaciones" inverse="true" cascade="all" lazy="false">
 			<key column="id_viaje" />
 			<one-to-many class="Calificacion" />
 		</set>

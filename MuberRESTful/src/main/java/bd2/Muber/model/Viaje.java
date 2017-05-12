@@ -122,12 +122,15 @@ public class Viaje {
 		this.calificaciones.add(calificacion);
 	}
 	
-	public void agregarPasajero(Pasajero pasajero) {
+	public void agregarPasajero(Pasajero pasajero){
+		this.pasajeros.add(pasajero);
+	}
+	
+	public boolean okAgregar(Pasajero pasajero) {
 		if (this.getMaxPasajeros() > this.pasajeros.size() ) {
-			this.pasajeros.add(pasajero);
-			System.out.println("El pasajero se agregó con éxito");
+			return true;
 		} else {
-			System.out.println("La capacidad esta llena");
+			return false;
 		}
 	}
 	

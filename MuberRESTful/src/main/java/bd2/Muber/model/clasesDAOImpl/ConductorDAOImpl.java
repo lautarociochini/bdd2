@@ -53,14 +53,12 @@ public class ConductorDAOImpl implements ConductorDAO {
 	}
 
 	@Override
-	@Transactional
 	public List<Conductor> getById(Session session, long id) {
 		Query query = session.createQuery("FROM Conductor C WHERE C.idUsuario = :id ");
 		query.setParameter("id", id);
 //		return (Conductor) query;
 		@SuppressWarnings("unchecked")
 		List<Conductor> list = query.list();
-		session.close();
 		return list;
 		
 		

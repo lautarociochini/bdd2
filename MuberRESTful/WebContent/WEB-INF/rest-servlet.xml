@@ -26,6 +26,9 @@
 	
 	<bean id="ViajeDAO" class="bd2.Muber.model.clasesDAOImpl.ViajeDAOImpl">
 	</bean>
+	
+	<bean id="CalificacionDAO" class="bd2.Muber.model.clasesDAOImpl.CalificacionDAOImpl">
+	</bean>
 
 </beans>
    

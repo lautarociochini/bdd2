@@ -86,7 +86,7 @@ public class DBLoader {
 
 		viaje1.agregarPasajero(Margarita);
 		viaje1.agregarPasajero(Alicia);
-		viaje1.agregarPasajero(German);
+//		viaje1.agregarPasajero(German);
 
 		// Parte C y D
 

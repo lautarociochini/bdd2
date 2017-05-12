@@ -8,5 +8,8 @@ import bd2.Muber.model.clasesDTO.PasajeroDTO;
 
 public interface PasajeroDAO {
 	List<Pasajero> getAllPasajeros(Session session);
+
 	public List<PasajeroDTO> getAllPasajerosAsPasajeroDTO(Session session);
+
+	List<Pasajero> getById(Session session, long idPasajero);
 }

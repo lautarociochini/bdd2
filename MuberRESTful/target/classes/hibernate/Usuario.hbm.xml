@@ -10,26 +10,26 @@
 			<generator class="native" />
 		</id>
 
-		<property name="nombre" />
-		<property name="contrasena" />
-		<property name="fechaIngreso" />
+		<property name="nombre" not-null="true" />
+		<property name="contrasena" not-null="true" />
+		<property name="fechaIngreso" not-null="true" />
 
 		<joined-subclass name="Pasajero" table="PASAJERO">
-			<key column="id_usuario" />
+			<key column="id_usuario"  not-null="true"/>
 			<property name="credito" />
 
-		
+
 
 		</joined-subclass>
 
 		<joined-subclass name="Conductor" table="CONDUCTOR">
 
-			<key column="id_usuario" />
-			<property name="licencia" />
+			<key column="id_usuario"  not-null="true"/>
+			<property name="licencia"  not-null="true"/>
 			<property name="puntaje" />
 
-			<set name="viajes" inverse="true" cascade="all">
-				<key column="id_conductor" />
+			<set name="viajes" inverse="true" cascade="all" lazy="false">
+				<key column="id_conductor"  not-null="true"/>
 				<one-to-many class="Viaje" />
 			</set>
 

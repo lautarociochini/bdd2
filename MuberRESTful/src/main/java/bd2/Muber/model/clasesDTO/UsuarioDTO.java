@@ -5,7 +5,7 @@ public class UsuarioDTO {
 	protected String nombre;
 	protected String contrasena;
 	protected String fechaIngreso; 
-	private long idUsuario;
+
 	 
 	 public UsuarioDTO() {
 		 super();
@@ -29,10 +29,5 @@ public class UsuarioDTO {
 	public void setFechaIngreso(String fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
-	public long getIdUsuario() {
-		return idUsuario;
-	}
-	public void setIdUsuario(long idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+
 }

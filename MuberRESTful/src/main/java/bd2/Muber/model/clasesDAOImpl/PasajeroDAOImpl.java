@@ -41,20 +41,28 @@ public class PasajeroDAOImpl implements PasajeroDAO {
 
 	public List<PasajeroDTO> getAllPasajerosAsPasajeroDTO(Session session) {
 		List<PasajeroDTO> pasajeroDTOs = new ArrayList<PasajeroDTO>();
-		for(Pasajero pasajero : getAllPasajeros(session)) {
-	        pasajeroDTOs.add(constructPasajeroDTO(pasajero));
-	    }
+		for (Pasajero pasajero : getAllPasajeros(session)) {
+			pasajeroDTOs.add(constructPasajeroDTO(pasajero));
+		}
 
-	    return pasajeroDTOs;
+		return pasajeroDTOs;
 	}
 
 	private PasajeroDTO constructPasajeroDTO(Pasajero pasajero) {
-		 	PasajeroDTO pasajeroDTO = new PasajeroDTO();
-		    pasajeroDTO.setNombre(pasajero.getNombre());
-		    pasajeroDTO.setContrasena(pasajero.getContrasena());
-		    pasajeroDTO.setFechaIngreso(pasajero.getfechaIngreso());
-		    pasajeroDTO.setIdUsuario(pasajero.getIdUsuario());
-		    pasajeroDTO.setCredito(pasajero.getCredito());
-		    return pasajeroDTO;
+		PasajeroDTO pasajeroDTO = new PasajeroDTO();
+		pasajeroDTO.setNombre(pasajero.getNombre());
+		pasajeroDTO.setFechaIngreso(pasajero.getfechaIngreso());
+		pasajeroDTO.setCredito(pasajero.getCredito());
+		return pasajeroDTO;
+	}
+
+	@Override
+	public List<Pasajero> getById(Session session, long idPasajero) {
+		Query query = session.createQuery("FROM Pasajero P WHERE P.idUsuario = :id ");
+		query.setParameter("id", idPasajero);
+		@SuppressWarnings("unchecked")
+		List<Pasajero> list = query.list();
+		return list;
+		
 	}
 }

@@ -82,12 +82,4 @@ public class ViajeDAOImpl implements ViajeDAO {
 		
 	}
 
-	@Override
-	public void updateViajeCalif(Session session, Viaje viaje) {
-		// TODO Auto-generated method stub
-		session.update(viaje);
-		session.flush();
-		
-	}
-
 }

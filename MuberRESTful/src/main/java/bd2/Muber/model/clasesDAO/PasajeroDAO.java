@@ -12,4 +12,6 @@ public interface PasajeroDAO {
 	public List<PasajeroDTO> getAllPasajerosAsPasajeroDTO(Session session);
 
 	List<Pasajero> getById(Session session, long idPasajero);
+
+	void updatePasajero(Session session, Pasajero pasajero);
 }

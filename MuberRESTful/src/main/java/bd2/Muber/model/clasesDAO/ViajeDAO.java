@@ -17,6 +17,5 @@ public interface ViajeDAO {
 	public void createViaje(Session session, Viaje viaje);
 	List<Viaje> getById(Session session, long idViaje);
 	void updateViaje(Session session, Viaje viaje);
-	void updateViajeCalif(Session session, Viaje viaje);
 
 }

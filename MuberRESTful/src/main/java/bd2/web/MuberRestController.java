@@ -43,7 +43,7 @@ public class MuberRestController {
 
 	@Resource(name = "ViajeDAO")
 	private ViajeDAO ViajeDAO;
-	
+
 	@Resource(name = "CalificacionDAO")
 	private CalificacionDAO CalificacionDAO;
 
@@ -146,49 +146,36 @@ public class MuberRestController {
 
 		return new Gson().toJson(aMap);
 	}
-	
+
 	@RequestMapping(value = "/viajes/calificar", method = RequestMethod.POST, produces = "application/json", headers = "Accept=application/json")
-	public String calificarViaje(@RequestParam long idViaje, @RequestParam long idPasajero, @RequestParam int puntaje, @RequestParam String comentario) {
+	public String calificarViaje(@RequestParam long idViaje, @RequestParam long idPasajero, @RequestParam int puntaje,
+			@RequestParam String comentario) {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 
 		Session session = getSession();
 
-		List<Viaje> viajes = ViajeDAO.getById(session, idViaje);
-		Viaje viaje = viajes.get(0);
-
-		List<Pasajero> pasajeros = PasajeroDAO.getById(session, idPasajero);
-		Pasajero pasajero = pasajeros.get(0);
-
-		int calificar = pasajero.okCalificar(viaje, pasajero);
-
-		if (calificar == 0) {
-			Calificacion calificacion = new Calificacion(viaje, puntaje, comentario, pasajero);
-			pasajero.calificar(calificacion, viaje);
-			
-			Transaction tx = null;
-			try {
-
-				tx = session.beginTransaction();
-				CalificacionDAO.createCalificacion(session, calificacion);
-				ViajeDAO.updateViajeCalif(session, viaje);
-				tx.commit();
-			} catch (Exception e) {
-				e.printStackTrace();
-				if (tx != null) {
-					tx.rollback();
+		List<Calificacion> existeCalificacion = CalificacionDAO.existeCalificacion(session, idPasajero, idViaje);
+		if (existeCalificacion.size() > 0) {
+			aMap.put("result", "El usuario ya califico este viaje");
+		} else {
+			List<Viaje> viajes = ViajeDAO.getById(session, idViaje);
+			Viaje viaje = viajes.get(0);
+			List<Pasajero> pasajeros = PasajeroDAO.getById(session, idPasajero);
+			Pasajero pasajero = pasajeros.get(0);
+			int calificar = pasajero.okCalificar(viaje, pasajero);
+			if (calificar == 0) {
+				Calificacion calificacion = new Calificacion(viaje, puntaje, comentario, pasajero);
+				pasajero.calificar(calificacion, viaje);
+				PasajeroDAO.updatePasajero(session, pasajero);
+				aMap.put("result", "La calificacion fue agregada");
+			} else {
+				if (calificar == 1) {
+					aMap.put("result", "El viaje no esta finalizado aun");
+				} else {
+					aMap.put("result", "El pasajero no se encuentra registrado en este viaje");
 				}
 			}
-			
-			
-			aMap.put("result", "La calificacion fue agregada");
-		} else {
-			if (calificar == 1) {
-				aMap.put("result", "El viaje no esta finalizado aun");
-			} else {
-				aMap.put("result", "El pasajero no se encuentra registrado en este viaje");
-			}
 		}
-
 		return new Gson().toJson(aMap);
 	}
 

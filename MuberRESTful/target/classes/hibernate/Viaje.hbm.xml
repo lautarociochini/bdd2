@@ -21,7 +21,7 @@
 			<one-to-many class="Calificacion" />
 		</set>
 
-		<set name="pasajeros" cascade="all">
+		<set name="pasajeros" cascade="all" lazy="false">
 			<key column="id_viaje" />
 			<one-to-many class="Pasajero" />
 		</set>

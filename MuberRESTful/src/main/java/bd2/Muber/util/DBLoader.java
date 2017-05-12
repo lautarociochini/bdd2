@@ -98,9 +98,9 @@ public class DBLoader {
 		Calificacion califAlicia = new Calificacion(viaje1, 4, "Bien, lastima que Roberto es muy charlatan.", Alicia);
 		Alicia.calificar(califAlicia, viaje1);
 
-		Calificacion califMargarita = new Calificacion(viaje1, 4,
-				"Me senti muy a gusto, ningun problema. Super recomendable.", Margarita);
-		Margarita.calificar(califMargarita, viaje1);
+//		Calificacion califMargarita = new Calificacion(viaje1, 4,
+//				"Me senti muy a gusto, ningun problema. Super recomendable.", Margarita);
+//		Margarita.calificar(califMargarita, viaje1);
 
 		return muber;
 	}

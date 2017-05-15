@@ -29,6 +29,9 @@
 	
 	<bean id="CalificacionDAO" class="bd2.Muber.model.clasesDAOImpl.CalificacionDAOImpl">
 	</bean>
+	
+	<bean id="MuberDAO" class="bd2.Muber.model.clasesDAOImpl.MuberDAOImpl">
+	</bean>
 
 </beans>
    

@@ -14,8 +14,5 @@ import bd2.Muber.model.Calificacion;
  *
  */
 public interface CalificacionDAO {
-
-	public void createCalificacion(Session session, Calificacion calificacion);
-
 	public List<Calificacion> existeCalificacion(Session session, long idPasajero, long idViaje);
 }

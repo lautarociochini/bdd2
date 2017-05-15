@@ -61,4 +61,9 @@ public class Pasajero extends Usuario {
 
 	}
 
+	public void cargarCredito(long monto) {
+		this.credito= this.credito + monto;
+		
+	}
+
 }

@@ -13,5 +13,4 @@ public interface PasajeroDAO {
 
 	List<Pasajero> getById(Session session, long idPasajero);
 
-	void updatePasajero(Session session, Pasajero pasajero);
 }

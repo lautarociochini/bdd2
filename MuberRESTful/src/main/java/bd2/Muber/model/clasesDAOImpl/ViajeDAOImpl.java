@@ -4,12 +4,9 @@
 package bd2.Muber.model.clasesDAOImpl;
 
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import bd2.Muber.model.Viaje;
 import bd2.Muber.model.clasesDAO.ViajeDAO;
 
@@ -37,49 +34,12 @@ public class ViajeDAOImpl implements ViajeDAO {
 	}
 
 	@Override
-	public void createViaje(Session session, Viaje viaje) {
-
-		Transaction tx = null;
-		try {
-
-			tx = session.beginTransaction();
-			session.save(viaje);
-			session.flush();
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (tx != null) {
-				tx.rollback();
-			}
-		}
-
-	}
-
-	@Override
 	public List<Viaje> getById(Session session, long idViaje) {
 		Query query = session.createQuery("FROM Viaje V WHERE V.idViaje = :id ");
 		query.setParameter("id", idViaje);
 		@SuppressWarnings("unchecked")
 		List<Viaje> list = query.list();
 		return list;
-	}
-
-	@Override
-	public void updateViaje(Session session, Viaje viaje) {
-		Transaction tx = null;
-		try {
-
-			tx = session.beginTransaction();
-			session.update(viaje);
-			session.flush();
-			tx.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			if (tx != null) {
-				tx.rollback();
-			}
-		}
-		
 	}
 
 }

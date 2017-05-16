@@ -8,6 +8,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import bd2.Muber.model.clasesDAO.PasajeroDAO;
 import bd2.Muber.model.clasesDTO.PasajeroDTO;
 import bd2.Muber.model.Pasajero;
@@ -62,6 +64,24 @@ public class PasajeroDAOImpl implements PasajeroDAO {
 		List<Pasajero> list = query.list();
 		return list;
 
+	}
+
+	@Override
+	public void updatePasajero(Session session, Pasajero pasajero) {
+		Transaction tx = null;
+		try {
+
+			tx = session.beginTransaction();
+			session.update(pasajero);
+			session.flush();
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null) {
+				tx.rollback();
+			}
+		}
+		
 	}
 
 }

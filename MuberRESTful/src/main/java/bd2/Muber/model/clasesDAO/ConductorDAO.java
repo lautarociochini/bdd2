@@ -19,4 +19,5 @@ public interface ConductorDAO {
 	Collection<String> getViajesById(Session session, long id);
 	Collection<String> getInfoById(Session session, long id);
 	public List<ConductorDTO> getAllConductoresAsConductorDTO(Session session);
+	Collection<String> getTop10(Session session);
 }

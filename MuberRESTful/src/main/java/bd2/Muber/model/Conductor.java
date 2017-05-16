@@ -47,6 +47,11 @@ public class Conductor extends Usuario{
 	}
 
 	public float getPuntaje() {
+		
+		return puntaje;
+	}
+	
+	public void actualizarPuntaje() {
 		float puntajeTotal = 0;
 		if (this.cantViajesFinalizados() > 0) {
 			for (Viaje viaje : viajes) {
@@ -56,7 +61,6 @@ public class Conductor extends Usuario{
 			}
 			puntaje = (puntajeTotal / this.cantViajesFinalizados());
 		}	
-		return puntaje;
 	}
 	
 	public int cantViajesFinalizados(){

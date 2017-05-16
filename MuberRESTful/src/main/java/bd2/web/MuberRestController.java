@@ -243,4 +243,13 @@ public class MuberRestController {
 		return new Gson().toJson(aMap);
 	}
 
+	@RequestMapping(value = "/conductores/top10", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
+	public String top10() {
+		Map<String, Object> aMap = new HashMap<String, Object>();
+		Collection<String> top10 = ConductorDAO.getTop10(getSession());
+		aMap.put("result", "OK");
+		aMap.put("Top 10 Conductores", top10);
+		return new Gson().toJson(aMap);
+	}
+
 }

@@ -71,32 +71,32 @@ public class DBLoader {
 		Muber muber = new Muber();
 
 		// Parte A.
-		Conductor Roberto = new Conductor("Roberto", "012345", "15/03/2017", "10/03/2017");
-		muber.agregarConductor(Roberto);
-		Viaje viaje1 = new Viaje(900, "10/03/2017", "La Plata", "Tres Arroyos", 4, Roberto);
-
-		// Parte B.
-		Pasajero German = new Pasajero("German", "123456", "10/03/2017", 1500);
-		Pasajero Alicia = new Pasajero("Alicia", "123456", "10/03/2017", 1500);
-		Pasajero Margarita = new Pasajero("Margarita", "123456", "10/03/2017", 1500);
-
-		muber.agregarPasajero(German);
-		muber.agregarPasajero(Alicia);
-		muber.agregarPasajero(Margarita);
-
-		viaje1.agregarPasajero(Margarita);
-		viaje1.agregarPasajero(Alicia);
-//		viaje1.agregarPasajero(German);
-
-		// Parte C y D
-
-		Roberto.finalizarViaje(viaje1);
-
-		Calificacion califGerman = new Calificacion(viaje1, 5, "Buen viaje, Roberto excelente conductor.", German);
-		German.calificar(califGerman, viaje1);
-
-		Calificacion califAlicia = new Calificacion(viaje1, 4, "Bien, lastima que Roberto es muy charlatan.", Alicia);
-		Alicia.calificar(califAlicia, viaje1);
+//		Conductor Roberto = new Conductor("Roberto", "012345", "15/03/2017", "10/03/2017");
+//		muber.agregarConductor(Roberto);
+//		Viaje viaje1 = new Viaje(900, "10/03/2017", "La Plata", "Tres Arroyos", 4, Roberto);
+//
+//		// Parte B.
+//		Pasajero German = new Pasajero("German", "123456", "10/03/2017", 1500);
+//		Pasajero Alicia = new Pasajero("Alicia", "123456", "10/03/2017", 1500);
+//		Pasajero Margarita = new Pasajero("Margarita", "123456", "10/03/2017", 1500);
+//
+//		muber.agregarPasajero(German);
+//		muber.agregarPasajero(Alicia);
+//		muber.agregarPasajero(Margarita);
+//
+//		viaje1.agregarPasajero(Margarita);
+//		viaje1.agregarPasajero(Alicia);
+////		viaje1.agregarPasajero(German);
+//
+//		// Parte C y D
+//
+//		Roberto.finalizarViaje(viaje1);
+//
+//		Calificacion califGerman = new Calificacion(viaje1, 5, "Buen viaje, Roberto excelente conductor.", German);
+//		German.calificar(califGerman, viaje1);
+//
+//		Calificacion califAlicia = new Calificacion(viaje1, 4, "Bien, lastima que Roberto es muy charlatan.", Alicia);
+//		Alicia.calificar(califAlicia, viaje1);
 
 //		Calificacion califMargarita = new Calificacion(viaje1, 4,
 //				"Me senti muy a gusto, ningun problema. Super recomendable.", Margarita);

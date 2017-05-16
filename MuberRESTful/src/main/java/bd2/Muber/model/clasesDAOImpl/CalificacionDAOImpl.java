@@ -7,7 +7,10 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import bd2.Muber.model.Calificacion;
+import bd2.Muber.model.Viaje;
 import bd2.Muber.model.clasesDAO.CalificacionDAO;
 
 /**
@@ -27,5 +30,6 @@ public class CalificacionDAOImpl implements CalificacionDAO {
 		return list;
 
 	}
+
 
 }

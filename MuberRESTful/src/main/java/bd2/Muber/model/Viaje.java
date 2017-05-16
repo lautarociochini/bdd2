@@ -120,6 +120,7 @@ public class Viaje {
 	
 	public void agregarCalificacion(Calificacion calificacion) {
 		this.calificaciones.add(calificacion);
+		this.conductor.actualizarPuntaje();
 	}
 	
 	public void agregarPasajero(Pasajero pasajero){

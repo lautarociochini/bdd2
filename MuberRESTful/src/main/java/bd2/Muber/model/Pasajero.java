@@ -23,6 +23,7 @@ public class Pasajero extends Usuario {
 
 	public void calificar(Calificacion calificacion, Viaje viaje) {
 		viaje.agregarCalificacion(calificacion);
+		
 	}
 
 	public int okCalificar(Viaje unViaje, Pasajero pasajero) {

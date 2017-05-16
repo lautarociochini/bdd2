@@ -80,4 +80,16 @@ public class ConductorDAOImpl implements ConductorDAO {
 		return ConductorDTO;
 	}
 
+	@Override
+	public Collection<String> getTop10(Session session) {
+		Query query = session.createQuery("SELECT C.nombre, C.puntaje "
+				+ "FROM Conductor C "
+				+ "WHERE C.idUsuario not in ( Select distinct C.idUsuario From Conductor C join C.viajes V where V.finalizado = false)"
+				+ "ORDER BY C.puntaje desc");
+		query.setMaxResults(10);		
+		@SuppressWarnings("unchecked")
+		List<String> list = query.list();
+		return list;
+	}
+
 }

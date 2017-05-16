@@ -15,5 +15,6 @@ import bd2.Muber.model.Viaje;
 public interface ViajeDAO {
 	List<String> getAllViajesAbiertos(Session session);
 	List<Viaje> getById(Session session, long idViaje);
+	void updateViaje(Session session, Viaje viaje);
 
 }

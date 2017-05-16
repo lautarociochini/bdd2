@@ -7,6 +7,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import bd2.Muber.model.Viaje;
 import bd2.Muber.model.clasesDAO.ViajeDAO;
 
@@ -40,6 +42,24 @@ public class ViajeDAOImpl implements ViajeDAO {
 		@SuppressWarnings("unchecked")
 		List<Viaje> list = query.list();
 		return list;
+	}
+
+	@Override
+	public void updateViaje(Session session, Viaje viaje) {
+		Transaction tx = null;
+		try {
+
+			tx = session.beginTransaction();
+			session.update(viaje);
+			session.flush();
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null) {
+				tx.rollback();
+			}
+		}
+		
 	}
 
 }

@@ -9,5 +9,7 @@ import bd2.Muber.model.Muber;
 public interface MuberDAO {
 	void update(Session session, Muber muber);
 	List<Muber> obtenerMuber(Session session, long id);
+	boolean existeMuber(Session session);
+	void saveMuber(Session session, Muber muber);
 
 }

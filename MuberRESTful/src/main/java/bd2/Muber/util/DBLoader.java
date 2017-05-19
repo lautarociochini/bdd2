@@ -16,7 +16,7 @@ import bd2.Muber.model.Viaje;
 
 public class DBLoader {
 
-	private static SessionFactory sessions;
+	private static SessionFactory sessionFactory;
 	private static ServiceRegistry serviceRegistry;
 
 	public DBLoader() {
@@ -38,11 +38,11 @@ public class DBLoader {
 			System.out.println("Hecho.");
 
 			serviceRegistry = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
-			sessions = cfg.buildSessionFactory(serviceRegistry);
+			sessionFactory = cfg.buildSessionFactory(serviceRegistry);
 
 			Muber muber = persistirModelo();
 
-			Session session = sessions.openSession();
+			Session session = sessionFactory.openSession();
 			Transaction tx = null;
 			try {
 				tx = session.beginTransaction();

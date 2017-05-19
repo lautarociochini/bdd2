@@ -10,7 +10,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +34,10 @@ import bd2.Muber.model.clasesDAO.CalificacionDAO;
 import bd2.Muber.model.clasesDTO.ConductorDTO;
 import bd2.Muber.model.clasesDTO.PasajeroDTO;
 
+/**
+ * @author GM
+ *
+ */
 @ControllerAdvice
 @RequestMapping("/services")
 @ResponseBody
@@ -74,6 +81,22 @@ public class MuberRestController {
 		return new Gson().toJson(aMap);
 	}
 
+	@RequestMapping(value = "/muber/nuevo", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
+	public String crearMuber() {
+		Map<String, Object> aMap = new HashMap<String, Object>();
+		Configuration cfg = new Configuration();
+		cfg.configure("/hibernate.cfg.xml");
+		new SchemaExport(cfg).drop(true, true);
+		new SchemaExport(cfg).create(true, true);
+		StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
+		SessionFactory sessionFactory = cfg.buildSessionFactory(serviceRegistry);
+		Session session = sessionFactory.openSession();
+		Muber muber = new Muber();
+		MuberDAO.saveMuber(session, muber);
+		aMap.put("result", "OK");	
+		return new Gson().toJson(aMap);
+	}
+	
 	@RequestMapping(value = "/pasajeros", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 	public String devolverPasajeros() {
 		Map<String, Object> aMap = new HashMap<String, Object>();
@@ -105,10 +128,14 @@ public class MuberRestController {
 	public String devolverDetalleConductor(@RequestParam("id") long id) {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		Collection<String> detallesConductor = ConductorDAO.getInfoById(getSession(), id);
-		Collection<String> viajesConductor = ConductorDAO.getViajesById(getSession(), id);
-		aMap.put("result", "OK");
-		aMap.put("Detalles Conductor", detallesConductor);
-		aMap.put("Viajes", viajesConductor);
+		if (detallesConductor.isEmpty()) {
+			aMap.put("result", "El conductor no existe");
+		} else {
+			Collection<String> viajesConductor = ConductorDAO.getViajesById(getSession(), id);
+			aMap.put("result", "OK");
+			aMap.put("Detalles Conductor", detallesConductor);
+			aMap.put("Viajes", viajesConductor);
+		}
 		return new Gson().toJson(aMap);
 	}
 
@@ -116,15 +143,19 @@ public class MuberRestController {
 	public String nuevoViaje(@RequestParam String origen, @RequestParam String destino, @RequestParam long idConductor,
 			@RequestParam float costoTotal, @RequestParam int maxPasajeros) {
 		Map<String, Object> aMap = new HashMap<String, Object>();
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = new Date();
-		String fecha = dateFormat.format(date).toString();
 		Session session = getSession();
 		List<Conductor> conductor = ConductorDAO.getById(session, idConductor);
-		new Viaje(costoTotal, fecha, origen, destino, maxPasajeros, conductor.get(0));
-		Muber muber = getMuber(session);
-		MuberDAO.update(session, muber);
-		aMap.put("result", "OK");
+		if (conductor.isEmpty()) {
+			aMap.put("result", "El conductor no existe");
+		} else {
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			Date date = new Date();
+			String fecha = dateFormat.format(date).toString();
+			new Viaje(costoTotal, fecha, origen, destino, maxPasajeros, conductor.get(0));
+			Muber muber = getMuber(session);
+			MuberDAO.update(session, muber);
+			aMap.put("result", "OK");
+		}
 		return new Gson().toJson(aMap);
 	}
 
@@ -133,22 +164,37 @@ public class MuberRestController {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		Session session = getSession();
 		List<Viaje> viajes = ViajeDAO.getById(session, idViaje);
-		Viaje viaje = viajes.get(0);
-		List<Pasajero> pasajeros = PasajeroDAO.getById(session, idPasajero);
-		Pasajero pasajero = pasajeros.get(0);
-		int registrarse = pasajero.okRegistrarseA(viaje);
-		if (registrarse == 0) {
-			pasajero.registrarseA(viaje);
-			Muber muber = getMuber(session);
-			MuberDAO.update(session, muber);
-			aMap.put("result", "OK");
+		if (viajes.isEmpty()) {
+			aMap.put("result", "El viaje no existe");
 		} else {
-			if (registrarse == 1) {
-				aMap.put("result", "La capacidad esta llena");
+			List<Pasajero> pasajeros = PasajeroDAO.getById(session, idPasajero);
+			if (pasajeros.isEmpty()) {
+				aMap.put("result", "El pasajero no existe");
 			} else {
-				aMap.put("result", "El viaje esta finalizado");
+				Viaje viaje = viajes.get(0);
+				Pasajero pasajero = pasajeros.get(0);
+				if (pasajero.getCredito() < (viaje.getCostoTotal() / (viaje.getPasajeros().size() + 1))) {
+					aMap.put("result", "El pasajero no cuenta con suficiente credito");
+				} else {
+					int registrarse = pasajero.okRegistrarseA(viaje);
+					if (registrarse == 0) {
+						pasajero.registrarseA(viaje);
+						Muber muber = getMuber(session);
+						MuberDAO.update(session, muber);
+						aMap.put("result", "OK");
+					} else {
+						if (registrarse == 1) {
+							aMap.put("result", "La capacidad esta llena");
+						} else {
+							aMap.put("result", "El viaje esta finalizado");
+						}
+					}
+				}
+
 			}
+
 		}
+
 		return new Gson().toJson(aMap);
 	}
 
@@ -158,30 +204,40 @@ public class MuberRestController {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 
 		Session session = getSession();
-
-		List<Calificacion> existeCalificacion = CalificacionDAO.existeCalificacion(session, idPasajero, idViaje);
-		if (existeCalificacion.size() > 0) {
-			aMap.put("result", "El usuario ya califico este viaje");
+		List<Pasajero> pasajeros = PasajeroDAO.getById(session, idPasajero);
+		if (pasajeros.isEmpty()) {
+			aMap.put("result", "El pasajero no existe");
 		} else {
 			List<Viaje> viajes = ViajeDAO.getById(session, idViaje);
-			Viaje viaje = viajes.get(0);
-			List<Pasajero> pasajeros = PasajeroDAO.getById(session, idPasajero);
-			Pasajero pasajero = pasajeros.get(0);
-			int calificar = pasajero.okCalificar(viaje, pasajero);
-			if (calificar == 0) {
-				Calificacion calificacion = new Calificacion(viaje, puntaje, comentario, pasajero);
-				pasajero.calificar(calificacion, viaje);
-				Muber muber = getMuber(session);
-				MuberDAO.update(session, muber);
-				aMap.put("result", "La calificacion fue agregada");
+			if (viajes.isEmpty()) {
+				aMap.put("result", "El viaje no existe");
 			} else {
-				if (calificar == 1) {
-					aMap.put("result", "El viaje no esta finalizado aun");
+				List<Calificacion> existeCalificacion = CalificacionDAO.existeCalificacion(session, idPasajero,
+						idViaje);
+				if (existeCalificacion.size() > 0) {
+					aMap.put("result", "El usuario ya califico este viaje");
 				} else {
-					aMap.put("result", "El pasajero no se encuentra registrado en este viaje");
+					Viaje viaje = viajes.get(0);
+					Pasajero pasajero = pasajeros.get(0);
+					int calificar = pasajero.okCalificar(viaje, pasajero);
+					if (calificar == 0) {
+						Calificacion calificacion = new Calificacion(viaje, puntaje, comentario, pasajero);
+						pasajero.calificar(calificacion, viaje);
+						Muber muber = getMuber(session);
+						MuberDAO.update(session, muber);
+						aMap.put("result", "La calificacion fue agregada");
+					} else {
+						if (calificar == 1) {
+							aMap.put("result", "El viaje no esta finalizado aun");
+						} else {
+							aMap.put("result", "El pasajero no se encuentra registrado en este viaje");
+						}
+					}
 				}
 			}
+
 		}
+
 		return new Gson().toJson(aMap);
 	}
 
@@ -190,11 +246,15 @@ public class MuberRestController {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		Session session = getSession();
 		List<Pasajero> pasajeros = PasajeroDAO.getById(session, idPasajero);
-		Pasajero pasajero = pasajeros.get(0);
-		pasajero.cargarCredito(monto);
-		Muber muber = getMuber(session);
-		MuberDAO.update(session, muber);
-		aMap.put("result", "OK");
+		if (pasajeros.isEmpty()) {
+			aMap.put("result", "El pasajero no existe");
+		} else {
+			Pasajero pasajero = pasajeros.get(0);
+			pasajero.cargarCredito(monto);
+			Muber muber = getMuber(session);
+			MuberDAO.update(session, muber);
+			aMap.put("result", "OK");
+		}
 		return new Gson().toJson(aMap);
 	}
 
@@ -203,11 +263,21 @@ public class MuberRestController {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		Session session = getSession();
 		List<Viaje> viajes = ViajeDAO.getById(session, idViaje);
-		Viaje viaje = viajes.get(0);
-		viaje.finalizar();
-		Muber muber = getMuber(session);
-		MuberDAO.update(session, muber);
-		aMap.put("result", "OK");
+		if (viajes.isEmpty()) {
+			aMap.put("result", "El viaje no existe");
+		} else {
+			Viaje viaje = viajes.get(0);
+			if (viaje.estaFinalizado()) {
+				aMap.put("result", "El viaje ya esta finalizado");
+			} else {
+				viaje.finalizar();
+				Muber muber = getMuber(session);
+				MuberDAO.update(session, muber);
+				aMap.put("result", "OK");
+			}
+
+		}
+
 		return new Gson().toJson(aMap);
 	}
 

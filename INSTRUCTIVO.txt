@@ -1,0 +1,82 @@
+INSTRUCTIVO
+
+Crear la BD con nombre grupo6, y mismo usuario y contrasena
+
+1. Cargar la BD con el siguiente comando(si existe lo borra y sino lo crea):
+
+curl -X GET  http://localhost:8080/MuberRESTful/rest/services/muber/nuevo
+
+
+
+Los siguientes comandos corresponden al modelo implementado en la etapa 1:
+
+2. Crear un conductor
+
+curl -X POST -d"nombre=Roberto&contrasena=123456&licencia=15/03/2017" http://localhost:8080/MuberRESTful/rest/services/conductores/nuevo
+
+3. Crear pasajeros
+
+curl -X POST -d"nombre=German&contrasena=123456&credito=1500" http://localhost:8080/MuberRESTful/rest/services/pasajeros/nuevo
+
+curl -X POST -d"nombre=Alicia&contrasena=123456&credito=1500" http://localhost:8080/MuberRESTful/rest/services/pasajeros/nuevo
+
+curl -X POST -d"nombre=Margarita&contrasena=123456&credito=1500" http://localhost:8080/MuberRESTful/rest/services/pasajeros/nuevo
+
+4. Crear viaje de Tres Arroyos a La Plata con Roberto como conductor y costo total 900
+
+curl -X POST -d"origen=La plata&destino=Tres Arroyos&idConductor=1&costoTotal=900&maxPasajeros=4" http://localhost:8080/MuberRESTful/rest/services/viajes/nuevo  
+(idConductor=1 corresponde a Roberto)
+
+5. Agregar los 3 pasajeros ya creados al viaje anterior
+
+curl -X PUT  'http://localhost:8080/MuberRESTful/rest/services/viajes/agregarPasajero?idViaje=1&idPasajero=2'  
+(idPasajero=2 corresponde a German)
+
+curl -X PUT  'http://localhost:8080/MuberRESTful/rest/services/viajes/agregarPasajero?idViaje=1&idPasajero=3'   
+(idPasajero=3 corresponde a Alicia)
+
+curl -X PUT  'http://localhost:8080/MuberRESTful/rest/services/viajes/agregarPasajero?idViaje=1&idPasajero=4'   
+(idPasajero=4 corresponde a Margarita)
+
+6. Finalizar el viaje
+
+curl -X PUT  'http://localhost:8080/MuberRESTful/rest/services/viajes/finalizar?idViaje=1'
+
+7. Los 3 pasajeros califican el viaje
+
+curl -X POST -d"idViaje=1&idPasajero=2&puntaje=5&comentario=Buen viaje, Roberto excelente conductor" http://localhost:8080/MuberRESTful/rest/services/viajes/calificar
+
+curl -X POST -d"idViaje=1&idPasajero=3&puntaje=4&comentario=Bien, lastima que Roberto es muy charlatan" http://localhost:8080/MuberRESTful/rest/services/viajes/calificar
+
+curl -X POST -d"idViaje=1&idPasajero=4&puntaje=4&comentario=Me senti muy a gusto, ningun problema. Super recomendable." http://localhost:8080/MuberRESTful/rest/services/viajes/calificar
+
+
+
+Los siguientes comandos pertenecen a la segunda entrega:
+
+8. Crear viaje de Cordoba a Mar del plata con Roberto como conductor y costo 1500
+
+curl -X POST -d"origen=Cordoba&destino=Mar del Plata&idConductor=1&costoTotal=3500&maxPasajeros=4" http://localhost:8080/MuberRESTful/rest/services/viajes/nuevo
+
+9. Margarita se suma al viaje pero antes suma 4.000 a su credito
+
+curl -X PUT  'http://localhost:8080/MuberRESTful/rest/services/pasajeros/cargarCredito?monto=4000&idPasajero=4'
+
+curl -X PUT  'http://localhost:8080/MuberRESTful/rest/services/viajes/agregarPasajero?idViaje=2&idPasajero=4'
+
+Hugo, con credito inicial de 2300 tambien se suma al viaje
+
+curl -X POST -d"nombre=Hugo&contrasena=123456&credito=2300" http://localhost:8080/MuberRESTful/rest/services/pasajeros/nuevo
+
+curl -X PUT  'http://localhost:8080/MuberRESTful/rest/services/viajes/agregarPasajero?idViaje=2&idPasajero=5'
+
+10. Al final el viaje ambos califican
+
+curl -X PUT  'http://localhost:8080/MuberRESTful/rest/services/viajes/finalizar?idViaje=2'
+
+curl -X POST -d"idViaje=2&idPasajero=4&puntaje=4&comentario=Ya me hice amiga de Roberto, un fenomeno." http://localhost:8080/MuberRESTful/rest/services/viajes/calificar
+
+curl -X POST -d"idViaje=2&idPasajero=5&puntaje=5&comentario=Roberto maneja bien, y cuenta muy buenos chistes" http://localhost:8080/MuberRESTful/rest/services/viajes/calificar
+
+
+

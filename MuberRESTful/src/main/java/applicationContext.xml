@@ -11,12 +11,73 @@
        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 
+	<import resource="classpath:dataSource.xml" />
+    <import resource="classpath:hibernate.cfg.xml" />
+ 
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 
-	<import resource="classpath:hibernate.cfg.xml" />
-	<!--<import resource="hibernate/hibernate.cfg.xml" /> -->
+	<bean id="contextApplicationContextProvider"
+		class="bd2.Muber.util.Bd2ContextProvider">
+	</bean>
 
+	<bean id="pasajerosRepository"
+		class="bd2.Muber.repositories.impl.HibernatePasajerosRepository">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 
+	<bean id="dtoFactory" class="bd2.Muber.dto.DTOFactory">
+	</bean>
 
+	<bean id="repositoryLocator" class="bd2.Muber.repositories.RepositoryLocator"
+		factory-method="getInstance">
+		<property name="pasajerosRepository">
+			<ref bean="pasajerosRepository" />
+		</property>
+	</bean>
+
+	<bean id="baseService" class="bd2.Muber.services.impl.BaseServiceImpl">
+		<property name="pasajerosRepository">
+			<ref bean="pasajerosRepository" />
+		</property>
+		<property name="dtoFactory">
+			<ref bean="dtoFactory" />
+		</property>
+	</bean>
+
+	<bean id="pasajerosServiceTarget" class="bd2.Muber.services.impl.PasajerosServiceImpl"
+		parent="baseService">
+	</bean>
+
+	<bean id="pasajerosService"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref bean="pasajerosServiceTarget" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="serviceLocator" class="bd2.Muber.services.ServiceLocator"
+		factory-method="getInstance">
+		<property name="pasajerosService">
+			<ref bean="pasajerosService" />
+		</property>
+	</bean>
+	
+	
 </beans>
    
 

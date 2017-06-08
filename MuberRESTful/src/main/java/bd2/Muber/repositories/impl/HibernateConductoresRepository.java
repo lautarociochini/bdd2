@@ -17,15 +17,18 @@ import bd2.Muber.dto.ConductorDTO;
  * @author GM
  *
  */
-public class HibernateConductorRepository extends BaseHibernateRepository implements ConductorRepository {
+public class HibernateConductoresRepository extends BaseHibernateRepository implements ConductorRepository {
 
 	/* (non-Javadoc)
 	 * @see bd2.Muber.model.clasesDAO.ConductorDAO#getAllConductores(org.hibernate.Session)
 	 */
+	
+	public HibernateConductoresRepository() {
+	}
 	@Override
 	@Transactional
-	public List<Conductor> getAllConductores(Session session) {
-		Query query = session.createQuery("FROM Conductor C");
+	public List<Conductor> getAllConductores() {
+		Query query = getSession().createQuery("FROM Conductor C");
 		@SuppressWarnings("unchecked")
 		List<Conductor> list = query.list();
 		return list;

@@ -6,9 +6,9 @@ import java.util.List;
 import bd2.Muber.model.Conductor;
 import bd2.Muber.model.Pasajero;
 
-public class dtoFactory {
+public class DTOFactory {
 	
-	public dtoFactory() {
+	public DTOFactory() {
 		super();
 	}
 

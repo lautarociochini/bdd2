@@ -16,7 +16,7 @@ import bd2.Muber.model.Pasajero;
  * @author GM
  *
  */
-public class HibernatePasajeroRepository extends BaseHibernateRepository implements PasajeroRepository {
+public class HibernatePasajerosRepository extends BaseHibernateRepository implements PasajeroRepository {
 
 	/*
 	 * (non-Javadoc)
@@ -25,7 +25,7 @@ public class HibernatePasajeroRepository extends BaseHibernateRepository impleme
 	 * Session)
 	 */
 
-	public HibernatePasajeroRepository() {
+	public HibernatePasajerosRepository() {
 	}
 
 	@Override

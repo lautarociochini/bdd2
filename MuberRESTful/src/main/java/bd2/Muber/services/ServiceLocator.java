@@ -1,5 +1,7 @@
 package bd2.Muber.services;
 
+import bd2.Muber.services.impl.PasajerosServiceImpl;
+
 public class ServiceLocator {
 	
 	private static ServiceLocator serviceLocator;
@@ -17,7 +19,10 @@ public class ServiceLocator {
 	}
 	
 	public PasajerosService getPasajerosService() {
-		return this.pasajerosService ;
+			if (pasajerosService == null) {
+				pasajerosService = new PasajerosServiceImpl();
+			}
+			return pasajerosService;
 	}
 	
 }

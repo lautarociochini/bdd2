@@ -15,7 +15,7 @@ import bd2.Muber.repositories.ViajeRepository;
  * @author GM
  *
  */
-public class HibernateViajeRepository extends BaseHibernateRepository implements ViajeRepository {
+public class HibernateViajesRepository extends BaseHibernateRepository implements ViajeRepository {
 
 	/*
 	 * (non-Javadoc)
@@ -24,6 +24,9 @@ public class HibernateViajeRepository extends BaseHibernateRepository implements
 	 * bd2.Muber.model.clasesDAO.ViajeDAO#getAllViajesAbiertos(org.hibernate.
 	 * Session)
 	 */
+	
+	public HibernateViajesRepository() {
+	}
 	@Override
 	@Transactional
 	public List<String> getAllViajesAbiertos(Session session) {

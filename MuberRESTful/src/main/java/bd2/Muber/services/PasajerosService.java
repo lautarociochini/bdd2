@@ -4,8 +4,9 @@ import java.util.List;
 
 import bd2.Muber.dto.PasajeroDTO;
 
-public interface PasajerosService {
+public interface PasajerosService extends BaseService {
 	
 	public List<PasajeroDTO> getPasajeros();
+
 
 }

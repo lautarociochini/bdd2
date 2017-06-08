@@ -1,7 +1,9 @@
 package bd2.Muber.model;
 
 
-
+/**
+ * Clase Usuario de Muber - Clase padre de Conductor y Pasajero
+ */
 public class Usuario {
 	
 	protected String nombre;
@@ -12,7 +14,12 @@ public class Usuario {
 	public Usuario(){
 		
 	}
-	
+	/**
+	 * Crea un Usuario de Muber
+	 * @param nombre
+	 * @param contrasena
+	 * @param fechaIngreso
+	 */
 	public Usuario(String nombre, String contrasena, String fechaIngreso) {
 		this.setNombre(nombre);
 		this.setContrasena(contrasena);

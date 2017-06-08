@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+/**
+ * Clase conductor que representa un conductor de Muber
+ */
 public class Conductor extends Usuario{
 
 
@@ -17,13 +19,23 @@ public class Conductor extends Usuario{
 		super();
 		
 	}
+	/**
+	 * Crea un nuevo conductor de Muber
+	 * @param nombre
+	 * @param contrasena
+	 * @param fechaIngreso
+	 * @param licencia
+	 */
 	
 	public Conductor(String nombre, String contrasena, String fechaIngreso, String licencia) {
 		super(nombre, contrasena, fechaIngreso);
 		this.setLicencia(licencia);
 		this.puntaje = 0;
 	}
-	
+	/**
+	 * Recibe una fecha tipo string, la convierte y la retorna en formato Date de ser posible
+	 * @param fecha
+	 */
 	public Date ConvertirString(String fecha) {
 		 SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
 		 try {
@@ -50,7 +62,9 @@ public class Conductor extends Usuario{
 		
 		return puntaje;
 	}
-	
+	/**
+	 * Recorre los viajes de un conductor y actualiza su puntaje promedio
+	 */
 	public void actualizarPuntaje() {
 		float puntajeTotal = 0;
 		if (this.cantViajesFinalizados() > 0) {
@@ -62,7 +76,9 @@ public class Conductor extends Usuario{
 			puntaje = (puntajeTotal / this.cantViajesFinalizados());
 		}	
 	}
-	
+	/**
+	 * Retorna la cantidad de viajes finalizados de un conductor
+	 */
 	public int cantViajesFinalizados(){
 		int n = 0;
 		for (Viaje viaje : viajes) {
@@ -85,6 +101,9 @@ public class Conductor extends Usuario{
 		unViaje.finalizar();
 	}
 
+	/**
+	 * Recibe una fecha y compara con la fecha licencia del conductor en formato Date
+	 */
 	public boolean licenciaVencidaPara(String fecha) {
 		if (this.ConvertirString(this.getLicencia()).after(this.ConvertirString(fecha))) {
 			return false;
@@ -96,6 +115,10 @@ public class Conductor extends Usuario{
 		return viajes;
 	}
 
+	/**
+	 * Devuelve e imprime la información de los viajes ya finalizados del conductor
+	 * Ya no se utiliza este mensaje
+	 */
 	public void viajesRealizados() {
 		int n = 0;
 		System.out.println("Viajes finalizados de: "+ this.getNombre());
@@ -111,6 +134,10 @@ public class Conductor extends Usuario{
 		}
 		System.out.println("");
 	}
+	/**
+	 * Devuelve e imprime la información de los viajes abiertos del conductor
+	 * Ya no se utiliza este mensaje
+	 */
 	
 	public void viajesAbiertos() {
 		int n = 0;

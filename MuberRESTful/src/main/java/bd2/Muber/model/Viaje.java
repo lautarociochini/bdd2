@@ -1,6 +1,8 @@
 package bd2.Muber.model;
 
-
+/**
+ * Clase Viaje - Representa los viajes de Muber
+ */
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -22,6 +24,15 @@ public class Viaje {
 		
 	}
 
+	/**
+	 * Crea un viaje de Muber asociado a un conductor
+	 * @param conductor
+	 * @param costoTotal
+	 * @param fecha
+	 * @param origen
+	 * @param destino
+	 * @param maxPasajero
+	 */
 	public Viaje(float costoTotal, String fecha, String origen, String destino, int maxPasajeros, Conductor conductor) {
 		this.setConductor(conductor);
 		this.setCostoTotal(costoTotal);
@@ -36,7 +47,9 @@ public class Viaje {
 	}
 	
 	
-	
+	/**
+	 * Retorna el puntaje para un viaje determinado
+	 */
 	public float getPuntaje() {
 		float puntajeTotal = 0;
 		if (this.calificaciones.size() != 0) {
@@ -109,6 +122,10 @@ public class Viaje {
 		this.calificaciones = calificaciones;
 	}
 
+	/**
+	 * Finaliza un viaje, determina el costo individual para cada pasajero 
+	 * y le descuenta el saldo a cada uno
+	 */
 	public void finalizar() {
 		this.setFinalizado(true);
 		float costoIndividual = this.costoTotal / this.pasajeros.size();
@@ -117,16 +134,28 @@ public class Viaje {
 		}
 		
 	}
-	
+	/**
+	 *  Agrega una calificación hecha por un pasajero a un viaje determinado
+	 *  Luego actualiza el puntaje del conductor
+	 *  @param calificacion
+	 */
 	public void agregarCalificacion(Calificacion calificacion) {
 		this.calificaciones.add(calificacion);
 		this.conductor.actualizarPuntaje();
 	}
 	
+	/**
+	 * Agrega un pasajero a un viaje
+	 * @param pasajero
+	 */
 	public void agregarPasajero(Pasajero pasajero){
 		this.pasajeros.add(pasajero);
 	}
 	
+	/**
+	 * Verifica que un pasajero pueda agregarse a un viaje 
+	 * @param pasajero
+	 */
 	public boolean okAgregar(Pasajero pasajero) {
 		if (this.getMaxPasajeros() > this.pasajeros.size() ) {
 			return true;
@@ -135,6 +164,9 @@ public class Viaje {
 		}
 	}
 	
+	/**
+	 * Chequea si un viaje está finalizado
+	 */
 	public boolean estaFinalizado() {
 		return this.finalizado;
 	}

@@ -15,8 +15,10 @@ import bd2.Muber.repositories.CalificacionRepository;;
  * @author GM
  *
  */
-public class HibernateCalificacionRepository extends BaseHibernateRepository implements CalificacionRepository {
+public class HibernateCalificacionesRepository extends BaseHibernateRepository implements CalificacionRepository {
 
+	public HibernateCalificacionesRepository() {
+	}
 	@Override
 	public List<Calificacion> existeCalificacion(Session session, long idPasajero, long idViaje) {
 		Query query = session.createQuery(

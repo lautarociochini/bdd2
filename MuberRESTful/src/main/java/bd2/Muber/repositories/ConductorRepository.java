@@ -14,7 +14,7 @@ import bd2.Muber.dto.ConductorDTO;
  *
  */
 public interface ConductorRepository extends BaseRepository {
-	List<Conductor> getAllConductores(Session session);
+	List<Conductor> getAllConductores();
 	List<Conductor> getById(Session session, long id);
 	Collection<String> getViajesById(Session session, long id);
 	Collection<String> getInfoById(Session session, long id);

@@ -5,7 +5,8 @@ package bd2.Muber.model;
 
 /**
  * @author GM
- *
+ * Clase que representa la relación entre un viaje y un pasajero
+ * Fue creada sólo para respetar el método PUT que recibe dos valores tanto del idPasajero y IdUsuario
  */
 public class ViajePasajero {
 

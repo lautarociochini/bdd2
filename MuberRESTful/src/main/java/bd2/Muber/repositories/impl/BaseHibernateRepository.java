@@ -18,19 +18,11 @@ public class BaseHibernateRepository implements BaseRepository {
 	/* (non-Javadoc)
 	 * @see bd2.Muber.repositories.BaseRepository#getSession()
 	 */
-	
-	private Session session;
+	protected SessionFactory sessionFactory;
 	
 	@Override
 	public Session getSession() {
-		if (session == null) {
-		Configuration cfg = new Configuration();
-		cfg.configure("hibernate.cfg.xml");
-		@SuppressWarnings("deprecation")
-		SessionFactory factory = cfg.buildSessionFactory();
-		session = factory.openSession();
-		}
-		return session;
+		return sessionFactory.getCurrentSession();
 	}
 
 }

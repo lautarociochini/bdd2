@@ -1,5 +1,10 @@
 package bd2.Muber.dto;
 
+/**
+ * Clase usuarioDTO, utilizada para ser extendida desde PasajeroDTO y ConductorDTO
+ * 
+ */
+
 public class UsuarioDTO {
 	
 	protected String nombre;

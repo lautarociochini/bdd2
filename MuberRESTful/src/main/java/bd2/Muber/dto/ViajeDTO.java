@@ -6,6 +6,10 @@ import java.util.HashSet;
 import bd2.Muber.model.Calificacion;
 import bd2.Muber.model.Conductor;
 import bd2.Muber.model.Pasajero;
+/**
+ * Clase ViajeDTO utilizada para representar a un Viaje en el controlador
+ * 
+ */
 
 public class ViajeDTO {
 

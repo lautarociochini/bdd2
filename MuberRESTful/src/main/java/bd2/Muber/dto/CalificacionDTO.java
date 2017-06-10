@@ -3,6 +3,10 @@ package bd2.Muber.dto;
 import bd2.Muber.model.Pasajero;
 import bd2.Muber.model.Viaje;
 
+/**
+ * Clase calificacionDTO utilizada para representar a una calificacion en el controlador
+ * 
+ */
 public class CalificacionDTO {
 	
 	protected String comentario;

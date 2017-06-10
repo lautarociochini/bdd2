@@ -93,8 +93,8 @@ public class MuberRestController {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		Configuration cfg = new Configuration();
 		cfg.configure("/hibernate.cfg.xml");
-		new SchemaExport(cfg).drop(true, true);
-		new SchemaExport(cfg).create(true, true);
+		//new SchemaExport(cfg).drop(true, true);
+		//new SchemaExport(cfg).create(true, true);
 		StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
 		SessionFactory sessionFactory = cfg.buildSessionFactory(serviceRegistry);
 		Session session = sessionFactory.openSession();
@@ -116,9 +116,9 @@ public class MuberRestController {
 	@RequestMapping(value = "/conductores", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 	public String devolverConductores() {
 		Map<String, Object> aMap = new HashMap<String, Object>();
-		Collection<ConductorDTO> conductores = ConductorRepository.getAllConductoresAsConductorDTO(getSession());
+		//Collection<ConductorDTO> conductores = ConductorRepository.getAllConductoresAsConductorDTO(getSession());
 		aMap.put("result", "OK");
-		aMap.put("Conductores", conductores);
+		//aMap.put("Conductores", conductores);
 		return new Gson().toJson(aMap);
 	}
 

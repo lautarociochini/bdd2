@@ -15,20 +15,20 @@
 	<context:component-scan base-package="bd2.web" />
 	<context:annotation-config />
 	<mvc:annotation-driven />
-	<bean class="bd2.Muber.repositories.impl.PasajeroRepositoryImpl" id="PasajeroRepository">
+	<bean class="bd2.Muber.repositories.impl.HibernatePasajerosRepository" id="pasajerosRepository">
 	</bean>
 
-	<bean class="bd2.Muber.repositories.impl.ConductorRepositoryImpl" id="ConductorRepository">
+	<bean class="bd2.Muber.repositories.impl.HibernateConductoresRepository" id="conductoresRepository">
 	</bean>
 
-	<bean class="bd2.Muber.repositories.impl.ViajeRepositoryImpl" id="ViajeRepository">
+	<bean class="bd2.Muber.repositories.impl.HibernateViajesRepository" id="viajesRepository">
 	</bean>
 
-	<bean class="bd2.Muber.repositories.impl.CalificacionRepositoryImpl"
-		id="CalificacionRepository">
+	<bean class="bd2.Muber.repositories.impl.HibernateCalificacionesRepository"
+		id="calificacionesRepository">
 	</bean>
 
-	<bean class="bd2.Muber.repositories.impl.MuberRepositoryImpl" id="MuberRepository">
+	<bean class="bd2.Muber.repositories.impl.HibernateMuberRepository" id="muberRepository">
 	</bean>
 
 </beans>

@@ -1,6 +1,10 @@
 package bd2.Muber.dto;
 
-
+/**
+ * Clase ConductorDTO utilizada para representar a un conductor en el controlador
+ * es subclase de UsuarioDTO
+ * 
+ */
 public class ConductorDTO extends UsuarioDTO {
 	
 	protected String licencia;

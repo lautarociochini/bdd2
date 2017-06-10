@@ -11,7 +11,9 @@ import bd2.Muber.dto.ConductorDTO;
 
 /**
  * @author GM
- *
+ * Interface para representar a la clase de repositorios de Conductor
+ * Define métodos para obtener todos los conductores, obtener uno a través de su id
+ * y el top10 de conductores 
  */
 public interface ConductorRepository extends BaseRepository {
 	List<Conductor> getAllConductores();

@@ -14,7 +14,7 @@ import bd2.Muber.model.Pasajero;
 
 /**
  * @author GM
- *
+ * Clase que implementa al repositorio de Pasajeros
  */
 public class HibernatePasajerosRepository extends BaseHibernateRepository implements PasajeroRepository {
 
@@ -28,6 +28,9 @@ public class HibernatePasajerosRepository extends BaseHibernateRepository implem
 	public HibernatePasajerosRepository() {
 	}
 
+	/**
+	 * Método que recupera todos los pasajeros de Muber
+	 **/
 	@Override
 	@Transactional
 	public List<Pasajero> getAllPasajeros() {
@@ -36,10 +39,14 @@ public class HibernatePasajerosRepository extends BaseHibernateRepository implem
 		List<Pasajero> list = query.list();
 		return list;
 	}
+	/**
+	 * Método que recupera un pasajero de Muber a través de su id
+	 * @param idPasajero
+	 **/
 
 	@Override
-	public List<Pasajero> getById(Session session, long idPasajero) {
-		Query query = session.createQuery("FROM Pasajero P WHERE P.idUsuario = :id ");
+	public List<Pasajero> getById(long idPasajero) {
+		Query query = getSession().createQuery("FROM Pasajero P WHERE P.idUsuario = :id ");
 		query.setParameter("id", idPasajero);
 		@SuppressWarnings("unchecked")
 		List<Pasajero> list = query.list();

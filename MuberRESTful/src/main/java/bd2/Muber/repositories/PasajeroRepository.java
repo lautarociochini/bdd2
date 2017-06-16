@@ -17,7 +17,7 @@ public interface PasajeroRepository extends BaseRepository {
 	
 	 List<Pasajero> getAllPasajeros();
 
-	List<Pasajero> getById(Session session, long idPasajero);
+	List<Pasajero> getById(long idPasajero);
 
 	void updatePasajero(Session session, Pasajero pasajero);
 

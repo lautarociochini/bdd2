@@ -13,15 +13,22 @@ import bd2.Muber.repositories.CalificacionRepository;;
 
 /**
  * @author GM
- *
+ * Clase que implementa al repositorio de Calificaciones
  */
 public class HibernateCalificacionesRepository extends BaseHibernateRepository implements CalificacionRepository {
 
 	public HibernateCalificacionesRepository() {
 	}
 	@Override
-	public List<Calificacion> existeCalificacion(Session session, long idPasajero, long idViaje) {
-		Query query = session.createQuery(
+	
+	/**
+	 * Método que devuelve una lista(1) de calificaciones
+	 * @param session
+	 * @param idPasajero
+	 * @param idViaje
+	 **/
+	public List<Calificacion> existeCalificacion(long idPasajero, long idViaje) {
+		Query query = getSession().createQuery(
 				"FROM Calificacion C WHERE C.pasajero.idUsuario = :idPasajero and C.viaje.idViaje = :idViaje ");
 		query.setParameter("idPasajero", idPasajero);
 		query.setParameter("idViaje", idViaje);

@@ -22,9 +22,10 @@ public class PasajerosServiceImpl extends BaseServiceImpl implements PasajerosSe
 	/* (non-Javadoc)
 	 * @see bd2.Muber.services.PasajerosService#getPasajeros()
 	 */
-	
-	
-	private DTOFactory dtoFactory;
+	/**
+	 *Método que recupera los Pasajeros de Muber, los convierte a objetos DTO
+	 *y los retorna
+	 */
 	
 	@Override
 	public List<PasajeroDTO> getPasajeros() {
@@ -32,6 +33,7 @@ public class PasajerosServiceImpl extends BaseServiceImpl implements PasajerosSe
 		 List<PasajeroDTO> pasajerosDTO = dtoFactory.getAllPasajerosAsPasajeroDTO(pasajeros);
 		 return pasajerosDTO;
 	}
+
 
 
 }

@@ -15,6 +15,6 @@ import bd2.Muber.model.Calificacion;
  * Define un mensaje para saber si existe una calificacion
  */
 public interface CalificacionRepository extends BaseRepository {
-	public List<Calificacion> existeCalificacion(Session session, long idPasajero, long idViaje);
+	public List<Calificacion> existeCalificacion(long idPasajero, long idViaje);
 
 }

@@ -11,7 +11,8 @@ import bd2.Muber.repositories.BaseRepository;
 
 /**
  * @author Lautaro
- *
+ * Implementación de la clase de Repositorio Base
+ * Contiene una variable de SessionFactory
  */
 public class BaseHibernateRepository implements BaseRepository {
 
@@ -20,6 +21,9 @@ public class BaseHibernateRepository implements BaseRepository {
 	 */
 	protected SessionFactory sessionFactory;
 	
+	/**
+	 * Método que le pide la sesión actual al sessionFactory y la retorna
+	 **/
 	@Override
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();

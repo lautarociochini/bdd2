@@ -25,6 +25,7 @@ import com.google.gson.Gson;
 
 import bd2.Muber.dto.ConductorDTO;
 import bd2.Muber.dto.PasajeroDTO;
+import bd2.Muber.dto.ViajeDTO;
 import bd2.Muber.model.Calificacion;
 import bd2.Muber.model.Conductor;
 import bd2.Muber.model.Muber;
@@ -41,7 +42,7 @@ import bd2.Muber.repositories.PasajeroRepository;
 
 /**
  * @author GM
- *
+ * Clase Controlador de Muber. Su trabajo es interactuar con los repositorios 
  */
 @ControllerAdvice
 @RequestMapping("/services")
@@ -74,20 +75,26 @@ public class MuberRestController {
 		Session session = factory.openSession();
 		return session;
 	}
-
-	protected Muber getMuber(Session session) {
-		List<Muber> muberList = MuberRepository.obtenerMuber(session, 1);
+	/**
+	 *Método que recupera la instancia de Muber en el sistema
+	 */
+	protected Muber getMuber() {
+		List<Muber> muberList = MuberRepository.obtenerMuber(1);
 		Muber muber = muberList.get(0);
 		return muber;
 	}
-
+	/**
+	 *Método de ejemplo para verificar conexión con Tomcat
+	 */
 	@RequestMapping(value = "/example", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 	public String pasajeros() {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		aMap.put("result", "OK");
 		return new Gson().toJson(aMap);
 	}
-
+	/**
+	 *Método que crea la instancia incial de Muber
+	 */
 	@RequestMapping(value = "/muber/nuevo", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 	public String crearMuber() {
 		Map<String, Object> aMap = new HashMap<String, Object>();
@@ -104,54 +111,79 @@ public class MuberRestController {
 		return new Gson().toJson(aMap);
 	}
 	
+	/**
+	 *Método que retorna los pasajeros de Muber a través del método de requerimiento GET.
+	 *Retorna la colección de pasajeros en formato Json
+	 */
 	@RequestMapping(value = "/pasajeros", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 	public String devolverPasajeros() {
 		Map<String, Object> aMap = new HashMap<String, Object>();
-		Collection<PasajeroDTO> pasajeros = serviceLocator.getInstance().getPasajerosService().getPasajeros();
+		Collection<PasajeroDTO> pasajeros = ServiceLocator.getInstance().getPasajerosService().getPasajeros();
 		aMap.put("result", "OK");
 		aMap.put("Pasajeros", pasajeros);
 		return new Gson().toJson(aMap);
 	}
 
+	/**
+	 *Método que retorna los conductores de Muber a través del método de requerimiento GET.
+	 *Retorna la colección de conductores en formato Json
+	 */
 	@RequestMapping(value = "/conductores", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 	public String devolverConductores() {
 		Map<String, Object> aMap = new HashMap<String, Object>();
-		//Collection<ConductorDTO> conductores = ConductorRepository.getAllConductoresAsConductorDTO(getSession());
+		Collection<ConductorDTO> conductores = ServiceLocator.getInstance().getConductoresService().getConductores();
 		aMap.put("result", "OK");
-		//aMap.put("Conductores", conductores);
+		aMap.put("Conductores", conductores);
 		return new Gson().toJson(aMap);
 	}
-
+	
+	/**
+	 *Método que retorna los viajes abiertos de Muber a través del método de requerimiento GET.
+	 *Retorna la colección de viajes abiertos en formato Json
+	 */
 	@RequestMapping(value = "/viajes/abiertos", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 	public String devolverViajesAbiertos() {
 		Map<String, Object> aMap = new HashMap<String, Object>();
-		Collection<String> viajesAbiertos = ViajeRepository.getAllViajesAbiertos(getSession());
+		Collection<ViajeDTO> viajesAbiertos = ServiceLocator.getInstance().getViajesService().getViajesAbiertos();
 		aMap.put("result", "OK");
 		aMap.put("Viajes Abiertos", viajesAbiertos);
 		return new Gson().toJson(aMap);
 	}
 
+	/**
+	 *Método que retorna el detalle de un conductor. Se pasa el id como parámetro con el requermiento GET.
+	 *Retorna los datos asociados al conductor en formato Json.
+	 *@param id
+	 */
 	@RequestMapping(value = "/conductores/detalle", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
-	public String devolverDetalleConductor(@RequestParam("id") long id) {
+	public String devolverDetalleConductor(@RequestParam("idConductor") long idConductor) {
 		Map<String, Object> aMap = new HashMap<String, Object>();
-		Collection<String> detallesConductor = ConductorRepository.getInfoById(getSession(), id);
+		Collection<ConductorDTO> detallesConductor = ServiceLocator.getInstance().getConductoresService().getInfoById(idConductor);
 		if (detallesConductor.isEmpty()) {
 			aMap.put("result", "El conductor no existe");
 		} else {
-			Collection<String> viajesConductor = ConductorRepository.getViajesById(getSession(), id);
+			Collection<ViajeDTO> viajesConductor = ServiceLocator.getInstance().getConductoresService().getViajesById(idConductor);
 			aMap.put("result", "OK");
 			aMap.put("Detalles Conductor", detallesConductor);
 			aMap.put("Viajes", viajesConductor);
 		}
 		return new Gson().toJson(aMap);
 	}
-
+	/**
+	 *Método que realiza el alta de un nuevo viaje a través del requerimiento POST.
+	 *
+	 *@param origen
+	 *@param destino
+	 *@param idConductor
+	 *@param costoTotal
+	 *@param maxPasajeros
+	 */
 	@RequestMapping(value = "/viajes/nuevo", method = RequestMethod.POST, produces = "application/json", headers = "Accept=application/json")
 	public String nuevoViaje(@RequestParam String origen, @RequestParam String destino, @RequestParam long idConductor,
 			@RequestParam float costoTotal, @RequestParam int maxPasajeros) {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		Session session = getSession();
-		List<Conductor> conductor = ConductorRepository.getById(session, idConductor);
+		List<Conductor> conductor = ConductorRepository.getById(idConductor);
 		if (conductor.isEmpty()) {
 			aMap.put("result", "El conductor no existe");
 		} else {
@@ -159,22 +191,27 @@ public class MuberRestController {
 			Date date = new Date();
 			String fecha = dateFormat.format(date).toString();
 			new Viaje(costoTotal, fecha, origen, destino, maxPasajeros, conductor.get(0));
-			Muber muber = getMuber(session);
+			Muber muber = getMuber();
 			MuberRepository.update(session, muber);
 			aMap.put("result", "OK");
 		}
 		return new Gson().toJson(aMap);
 	}
 
+	/**
+	 *Método que registra un nuevo pasajero a un viaje a través del requerimiento POST.
+	 *Realiza las comprobaciones correspondientes e indica si es posible o no realizar la operación.
+	 *@param viajePasajero
+	 */
 	@RequestMapping(value = "/viajes/agregarPasajero", method = RequestMethod.PUT, produces = "application/json", headers = "Accept=application/json")
 	public String agregarPasajero(@RequestBody ViajePasajero viajePasajero) {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		Session session = getSession();
-		List<Viaje> viajes = ViajeRepository.getById(session, viajePasajero.getIdViaje());
+		List<Viaje> viajes = ViajeRepository.getById(viajePasajero.getIdViaje());
 		if (viajes.isEmpty()) {
 			aMap.put("result", "El viaje no existe");
 		} else {
-			List<Pasajero> pasajeros = PasajeroRepository.getById(session, viajePasajero.getIdUsuario());
+			List<Pasajero> pasajeros = PasajeroRepository.getById(viajePasajero.getIdUsuario());
 			if (pasajeros.isEmpty()) {
 				aMap.put("result", "El pasajero no existe");
 			} else {
@@ -186,7 +223,7 @@ public class MuberRestController {
 					int registrarse = pasajero.okRegistrarseA(viaje);
 					if (registrarse == 0) {
 						pasajero.registrarseA(viaje);
-						Muber muber = getMuber(session);
+						Muber muber = getMuber();
 						MuberRepository.update(session, muber);
 						aMap.put("result", "OK");
 					} else {
@@ -204,22 +241,29 @@ public class MuberRestController {
 
 		return new Gson().toJson(aMap);
 	}
-
+	/**
+	 *Método que crea una nueva calificación para un viaje dado. Realiza las comprobaciones correspondientes
+	 * y en caso de no poder completar la operación indica cual fue el error.
+	 *@param idViaje
+	 *@param idPasajero
+	 *@param puntaje
+	 *@param comentario
+	 */
 	@RequestMapping(value = "/viajes/calificar", method = RequestMethod.POST, produces = "application/json", headers = "Accept=application/json")
 	public String calificarViaje(@RequestParam long idViaje, @RequestParam long idPasajero, @RequestParam int puntaje,
 			@RequestParam String comentario) {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 
 		Session session = getSession();
-		List<Pasajero> pasajeros = PasajeroRepository.getById(session, idPasajero);
+		List<Pasajero> pasajeros = PasajeroRepository.getById(idPasajero);
 		if (pasajeros.isEmpty()) {
 			aMap.put("result", "El pasajero no existe");
 		} else {
-			List<Viaje> viajes = ViajeRepository.getById(session, idViaje);
+			List<Viaje> viajes = ViajeRepository.getById(idViaje);
 			if (viajes.isEmpty()) {
 				aMap.put("result", "El viaje no existe");
 			} else {
-				List<Calificacion> existeCalificacion = CalificacionRepository.existeCalificacion(session, idPasajero,
+				List<Calificacion> existeCalificacion = CalificacionRepository.existeCalificacion(idPasajero,
 						idViaje);
 				if (existeCalificacion.size() > 0) {
 					aMap.put("result", "El usuario ya califico este viaje");
@@ -230,7 +274,7 @@ public class MuberRestController {
 					if (calificar == 0) {
 						Calificacion calificacion = new Calificacion(viaje, puntaje, comentario, pasajero);
 						pasajero.calificar(calificacion, viaje);
-						Muber muber = getMuber(session);
+						Muber muber = getMuber();
 						MuberRepository.update(session, muber);
 						aMap.put("result", "La calificacion fue agregada");
 					} else {
@@ -248,29 +292,37 @@ public class MuberRestController {
 		return new Gson().toJson(aMap);
 	}
 
+	/**
+	 *Método que implementa la carga de crédito a un pasajero.
+	 *@param pasajero2
+	 */
 	@RequestMapping(value = "/pasajeros/cargarCredito", method = RequestMethod.PUT, produces = "application/json", headers = "Accept=application/json")
 	public String cargarCredito(@RequestBody Pasajero pasajero2) {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		Session session = getSession();
-		List<Pasajero> pasajeros = PasajeroRepository.getById(session, pasajero2.getIdUsuario());
+		List<Pasajero> pasajeros = PasajeroRepository.getById(pasajero2.getIdUsuario());
 		if (pasajeros.isEmpty()) {
 			aMap.put("result", "El pasajero no existe");
 		} else {
 			Pasajero pasajero = pasajeros.get(0);
 			pasajero.cargarCredito(pasajero2.getCredito());
-			Muber muber = getMuber(session);
+			Muber muber = getMuber();
 			MuberRepository.update(session, muber);
 			aMap.put("result", "OK");
 		}
 		return new Gson().toJson(aMap);
 	}
 
+	/**
+	 *Método que se encarga de finalizar un viaje pasado como parámetro.
+	 *@param viaje2
+	 */
 	@RequestMapping(value = "/viajes/finalizar", method = RequestMethod.PUT, produces = "application/json", headers = "Accept=application/json")
 	public String finalizarViaje(@RequestBody Viaje viaje2) {
 		Map<String, Object> aMap = new HashMap<String, Object>();
 		Session session = getSession();
 		
-		List<Viaje> viajes = ViajeRepository.getById(session, viaje2.getIdViaje());
+		List<Viaje> viajes = ViajeRepository.getById(viaje2.getIdViaje());
 		if (viajes.isEmpty()) {
 			aMap.put("result", "El viaje no existe");
 		} else {
@@ -279,7 +331,7 @@ public class MuberRestController {
 				aMap.put("result", "El viaje ya esta finalizado");
 			} else {
 				viaje.finalizar();
-				Muber muber = getMuber(session);
+				Muber muber = getMuber();
 				MuberRepository.update(session, muber);
 				aMap.put("result", "OK");
 			}
@@ -288,7 +340,13 @@ public class MuberRestController {
 
 		return new Gson().toJson(aMap);
 	}
-
+	
+	/**
+	 *Método que implementa el alta de un nuevo conductor de Muber a través del requerimiento POST.
+	 *@param nombre
+	 *@param contrasena
+	 *@param licencia
+	 */
 	@RequestMapping(value = "/conductores/nuevo", method = RequestMethod.POST, produces = "application/json", headers = "Accept=application/json")
 	public String nuevoConductor(@RequestParam String nombre, @RequestParam String contrasena,
 			@RequestParam String licencia) {
@@ -298,13 +356,19 @@ public class MuberRestController {
 		String fecha = dateFormat.format(date).toString();
 		Session session = getSession();
 		Conductor conductor = new Conductor(nombre, contrasena, fecha, licencia);
-		Muber muber = getMuber(session);
+		Muber muber = getMuber();
 		muber.agregarConductor(conductor);
 		MuberRepository.update(session, muber);
 		aMap.put("result", "OK");
 		return new Gson().toJson(aMap);
 	}
-
+	
+	/**
+	 *Método que implementa el alta de un nuevo pasajero de Muber a través del requerimiento POST.
+	 *@param nombre
+	 *@param contrasena
+	 *@param credito
+	 */
 	@RequestMapping(value = "/pasajeros/nuevo", method = RequestMethod.POST, produces = "application/json", headers = "Accept=application/json")
 	public String nuevoPasajero(@RequestParam String nombre, @RequestParam String contrasena,
 			@RequestParam float credito) {
@@ -314,17 +378,20 @@ public class MuberRestController {
 		String fecha = dateFormat.format(date).toString();
 		Session session = getSession();
 		Pasajero pasajero = new Pasajero(nombre, contrasena, fecha, credito);
-		Muber muber = getMuber(session);
+		Muber muber = getMuber();
 		muber.agregarPasajero(pasajero);
 		MuberRepository.update(session, muber);
 		aMap.put("result", "OK");
 		return new Gson().toJson(aMap);
 	}
 
+	/**
+	 *Método que retorna el top10 de los conductores de Muber
+	 */
 	@RequestMapping(value = "/conductores/top10", method = RequestMethod.GET, produces = "application/json", headers = "Accept=application/json")
 	public String top10() {
 		Map<String, Object> aMap = new HashMap<String, Object>();
-		Collection<String> top10 = ConductorRepository.getTop10(getSession());
+		List<ConductorDTO> top10 = ServiceLocator.getInstance().getConductoresService().getConductoresTopTen();
 		aMap.put("result", "OK");
 		aMap.put("Top 10 Conductores", top10);
 		return new Gson().toJson(aMap);

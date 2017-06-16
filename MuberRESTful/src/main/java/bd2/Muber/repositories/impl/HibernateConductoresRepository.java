@@ -10,12 +10,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 import bd2.Muber.model.Conductor;
+import bd2.Muber.model.Viaje;
 import bd2.Muber.repositories.ConductorRepository;
 import bd2.Muber.dto.ConductorDTO;
 
 /**
  * @author GM
- *
+ * Clase que implementa al repositorio de Conductores
  */
 public class HibernateConductoresRepository extends BaseHibernateRepository implements ConductorRepository {
 
@@ -25,6 +26,10 @@ public class HibernateConductoresRepository extends BaseHibernateRepository impl
 	
 	public HibernateConductoresRepository() {
 	}
+	
+	/**
+	 * Método que recupera todos los conductores de Muber
+	 **/
 	@Override
 	@Transactional
 	public List<Conductor> getAllConductores() {
@@ -33,30 +38,42 @@ public class HibernateConductoresRepository extends BaseHibernateRepository impl
 		List<Conductor> list = query.list();
 		return list;
 	}
-
+	/**
+	 * Método que recupera un conductor de Muber a través de su id
+	 * @param id
+	 **/
 	@Override
 	@Transactional
-	public List<String> getInfoById(Session session, long id) {
-		Query query = session.createQuery("SELECT C.nombre, C.puntaje, C.licencia FROM Conductor C WHERE C.idUsuario = :id ");
+	public List<Conductor> getInfoById(long id) {
+		Query query = getSession().createQuery("SELECT C.nombre, C.puntaje, C.licencia FROM Conductor C WHERE C.idUsuario = :id ");
 		query.setParameter("id", id);
 		@SuppressWarnings("unchecked")
-		List<String> list = query.list();
+		List<Conductor> list = query.list();
 		return list;
 	}
 
+	/**
+	 * Método que recupera un Viaje de Muber a través de su id
+	 * @param id
+	 **/
 	@Override
 	@Transactional
-	public Collection<String> getViajesById(Session session, long id) {
-		Query query = session.createQuery("SELECT V.origen, V.destino, V.costoTotal, V.fecha FROM Viaje V WHERE V.conductor.idUsuario = :id ");
+	public List<Viaje> getViajesById(long id) {
+		Query query = getSession().createQuery("SELECT V.origen, V.destino, V.costoTotal, V.fecha FROM Viaje V WHERE V.conductor.idUsuario = :id ");
 		query.setParameter("id", id);
 		@SuppressWarnings("unchecked")
-		List<String> list = query.list();
+		List<Viaje> list = query.list();
 		return list;
 	}
+	
+	/**
+	 * Método que recupera un Conductor de Muber a través de su id
+	 * @param id
+	 **/
 
 	@Override
-	public List<Conductor> getById(Session session, long id) {
-		Query query = session.createQuery("FROM Conductor C WHERE C.idUsuario = :id ");
+	public List<Conductor> getById(long id) {
+		Query query = getSession().createQuery("FROM Conductor C WHERE C.idUsuario = :id ");
 		query.setParameter("id", id);
 		// return (Conductor) query;
 		@SuppressWarnings("unchecked")
@@ -64,15 +81,18 @@ public class HibernateConductoresRepository extends BaseHibernateRepository impl
 		return list;		
 	}
 
+	/**
+	 * Método que recupera el nombre del Top 10 de los Conductores de Muber
+	 **/
 	@Override
-	public Collection<String> getTop10(Session session) {
-		Query query = session.createQuery("SELECT C.nombre, C.puntaje "
+	public List<Conductor> getTop10() {
+		Query query = getSession().createQuery("SELECT C.nombre, C.puntaje "
 				+ "FROM Conductor C "
 				+ "WHERE C.idUsuario not in ( Select distinct C.idUsuario From Conductor C join C.viajes V where V.finalizado = false)"
 				+ "ORDER BY C.puntaje desc");
 		query.setMaxResults(10);		
 		@SuppressWarnings("unchecked")
-		List<String> list = query.list();
+		List<Conductor> list = query.list();
 		return list;
 	}
 

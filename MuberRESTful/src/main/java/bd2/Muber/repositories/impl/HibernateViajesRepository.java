@@ -13,7 +13,7 @@ import bd2.Muber.repositories.ViajeRepository;
 
 /**
  * @author GM
- *
+ * Clase que implementa al repositorio de Viajes
  */
 public class HibernateViajesRepository extends BaseHibernateRepository implements ViajeRepository {
 
@@ -27,19 +27,27 @@ public class HibernateViajesRepository extends BaseHibernateRepository implement
 	
 	public HibernateViajesRepository() {
 	}
+	
+	/**
+	 * Método que recupera todos los Viajes abiertos de Muber
+	 **/
 	@Override
 	@Transactional
-	public List<String> getAllViajesAbiertos(Session session) {
-		Query query = session.createQuery(
+	public List<Viaje> getAllViajesAbiertos() {
+		Query query = getSession().createQuery(
 				"SELECT V.origen, V.destino, V.costoTotal, V.fecha FROM Viaje V WHERE V.finalizado = '0' ");
 		@SuppressWarnings("unchecked")
-		List<String> list = query.list();
+		List<Viaje> list = query.list();
 		return list;
 	}
 
+	/**
+	 * Método que recupera un Viaje de Muber a través de su id
+	 * @param idViaje
+	 **/
 	@Override
-	public List<Viaje> getById(Session session, long idViaje) {
-		Query query = session.createQuery("FROM Viaje V WHERE V.idViaje = :id ");
+	public List<Viaje> getById(long idViaje) {
+		Query query = getSession().createQuery("FROM Viaje V WHERE V.idViaje = :id ");
 		query.setParameter("id", idViaje);
 		@SuppressWarnings("unchecked")
 		List<Viaje> list = query.list();

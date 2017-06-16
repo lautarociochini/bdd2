@@ -12,8 +12,8 @@ import bd2.Muber.model.Muber;
  */
 public interface MuberRepository extends BaseRepository {
 	void update(Session session, Muber muber);
-	List<Muber> obtenerMuber(Session session, long id);
-	boolean existeMuber(Session session);
+	List<Muber> obtenerMuber(long id);
+	boolean existeMuber();
 	void saveMuber(Session session, Muber muber);
 
 }

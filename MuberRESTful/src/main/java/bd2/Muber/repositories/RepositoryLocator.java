@@ -5,6 +5,7 @@ package bd2.Muber.repositories;
 
 import bd2.Muber.repositories.impl.HibernateConductoresRepository;
 import bd2.Muber.repositories.impl.HibernatePasajerosRepository;
+import bd2.Muber.repositories.impl.HibernateViajesRepository;
 
 /**
  * @author Lautaro
@@ -17,6 +18,7 @@ public class RepositoryLocator {
 		private static RepositoryLocator repositoryLocator;
 		private PasajeroRepository pasajerosRepository;
 		private ConductorRepository conductoresRepository;
+		private ViajeRepository viajesRepository;
 		
 		private RepositoryLocator() {
 			
@@ -51,6 +53,13 @@ public class RepositoryLocator {
 				conductoresRepository = new HibernateConductoresRepository();
 			}
 			return conductoresRepository;
+		}
+		
+		public ViajeRepository getViajesRepository() {
+			if (viajesRepository == null) {
+				viajesRepository = new HibernateViajesRepository();
+			}
+			return viajesRepository;
 		}
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 
 import bd2.Muber.model.Conductor;
 import bd2.Muber.model.Pasajero;
+import bd2.Muber.model.Viaje;
 
 /**
  * Clase DTOFactory utilizada para convertir los objetos del dominio obtenidos desde los repositorios
@@ -39,7 +40,7 @@ public class DTOFactory {
 	 * 
 	 */
 	
-	private PasajeroDTO constructPasajeroDTO(Pasajero pasajero) {
+	public PasajeroDTO constructPasajeroDTO(Pasajero pasajero) {
 		PasajeroDTO pasajeroDTO = new PasajeroDTO();
 		pasajeroDTO.setNombre(pasajero.getNombre());
 		pasajeroDTO.setFechaIngreso(pasajero.getfechaIngreso());
@@ -60,19 +61,46 @@ public class DTOFactory {
 
 		return ConductorDTOs;
 	}
-	
 	/**
-	 * Método que recibe una lista de conductores, los convierte y retorna una lista de ConductoresDTO
-	 * @param pasajeros
+	 * Método que recibe un conductor, lo convierte a un conductorDTO y lo retorna
+	 * @param conductor
 	 * 
 	 */
 
-	private ConductorDTO constructConductorDTO(Conductor conductor) {
+	public ConductorDTO constructConductorDTO(Conductor conductor) {
 		ConductorDTO ConductorDTO = new ConductorDTO();
 		ConductorDTO.setNombre(conductor.getNombre());
 		ConductorDTO.setFechaIngreso(conductor.getfechaIngreso());
 		ConductorDTO.setLicencia(conductor.getLicencia());
 		ConductorDTO.setPuntaje(conductor.getPuntaje());
 		return ConductorDTO;
+	}
+	
+	/**
+	 * Método que recibe un viaje, lo convierte a un ViajeDTO y lo retorna
+	 * @param viaje
+	 * 
+	 */
+	public ViajeDTO constructViajeDTO(Viaje viaje) {
+		ViajeDTO ViajeDTO = new ViajeDTO();
+		ViajeDTO.setDestino(viaje.getDestino());
+		ViajeDTO.setOrigen(viaje.getOrigen());
+		ViajeDTO.setCostoTotal(viaje.getCostoTotal());
+		ViajeDTO.setFecha(viaje.getFecha());
+		ViajeDTO.setConductor(viaje.getConductor());
+		return ViajeDTO;
+	}
+	
+	/**
+	 * Método que recibe una lista de viajes, los convierte y retorna una lista de ViajeDTO
+	 * @param viajes
+	 * 
+	 */
+	public List<ViajeDTO> getAllViajesAsViajeDTO(List<Viaje> viajes) {
+		List<ViajeDTO> ViajeDTOs = new ArrayList<ViajeDTO>();
+		for (Viaje viaje : viajes) {
+			ViajeDTOs.add(constructViajeDTO(viaje));
+		}
+		return ViajeDTOs;
 	}
 }
